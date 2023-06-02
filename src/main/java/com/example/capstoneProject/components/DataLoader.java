@@ -1,6 +1,7 @@
 package com.example.capstoneProject.components;
 
-import com.example.capstoneProject.models.Card;
+import com.example.capstoneProject.models.Cards.Card;
+import com.example.capstoneProject.models.Cards.Unit;
 import com.example.capstoneProject.repositories.CardRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
@@ -17,8 +18,8 @@ public class DataLoader implements ApplicationRunner {
 
     }
     public void run (ApplicationArguments args){
-        Card cardHigherVampire = new Card(
-                "Regis: Higher Vampire",
+        Card cardHigherVampireTheSecond = new Card(
+                "Regis: Higher Vampire the Second",
                 "Vampire",
                 "Deploy, Melee: Drain all boosts from an enemy.\n",
                 "<span class=\"keyword deploy\">Deploy</span>, <span class=\"keyword melee\">Melee</span>: <span class=\"keyword drain\">Drain</span> all boosts from an enemy.\n",
@@ -42,6 +43,6 @@ public class DataLoader implements ApplicationRunner {
                 "melee"
         );
 
-        cardRepository.save(cardHigherVampire);
+        cardRepository.save(cardHigherVampireTheSecond);
     }
 }

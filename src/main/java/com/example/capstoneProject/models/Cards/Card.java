@@ -1,4 +1,4 @@
-package com.example.capstoneProject.models;
+package com.example.capstoneProject.models.Cards;
 
 import javax.persistence.*;
 
@@ -106,13 +106,13 @@ public class Card {
     public Card() {
     }
 
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
+//    public long getId() {
+//        return id;
+//    }
+//
+//    public void setId(long id) {
+//        this.id = id;
+//    }
 
     public String getName() {
         return name;
