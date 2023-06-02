@@ -1,5 +1,12 @@
 package com.example.capstoneProject.models;
 
+import com.example.capstoneProject.controller.CardController;
+import com.example.capstoneProject.models.Cards.Card;
+import org.springframework.http.ResponseEntity;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class Game {
     Board board;
     Player player1;
@@ -33,5 +40,11 @@ public class Game {
 
     public void setPlayer2(Player player2) {
         this.player2 = player2;
+    }
+
+    public ResponseEntity<List<Card>> getData(){
+        CardController controller = new CardController();
+        System.out.println(controller.getAllCards());
+        return controller.getAllCards();
     }
 }
