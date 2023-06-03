@@ -1,25 +1,23 @@
 package com.example.capstoneProject;
 
 import com.example.capstoneProject.controller.CardController;
-import com.example.capstoneProject.models.Board;
 import com.example.capstoneProject.models.Cards.Card;
-import com.example.capstoneProject.models.Cards.Range;
-import com.example.capstoneProject.models.Cards.Unit;
-import com.example.capstoneProject.models.Game;
-import com.example.capstoneProject.models.Player;
+import com.example.capstoneProject.repositories.CardRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.http.ResponseEntity;
 
-import java.util.ArrayList;
 import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest
 class CapstoneProjectApplicationTests {
 
 	@Autowired
 	CardController cardController;
+	@Autowired
+	CardRepository cardRepository;
 
 	@Test
 	void contextLoads() {
@@ -27,12 +25,30 @@ class CapstoneProjectApplicationTests {
 
 	@Test
 	void canFetch(){
-		ResponseEntity<List<Card>> response = cardController.getAllCards();
-		List<Range> cards = response.getBody();
-		for (Card card : cards) {
-			System.out.println(card.getName());
-		}
 
-		System.out.println(cards); // Print the ranges in the terminal
+	}
+	@Test
+	public void canFindMeleeCards(){
+		List<Card> foundCards = cardRepository.findByRowType("Melee");
+		for (Card card : foundCards){
+			System.out.println(card.getRowType());
+		}
+		assertEquals("Melee", foundCards.get(0).getRowType());
+	}
+	@Test
+	public void canFindRangeCards(){
+		List<Card> foundCards = cardRepository.findByRowType("Range");
+		for (Card card : foundCards){
+			System.out.println(card.getRowType());
+		}
+		assertEquals("Range", foundCards.get(0).getRowType());
+	}
+	@Test
+	public void canFindSiegeCards(){
+		List<Card> foundCards = cardRepository.findByRowType("Siege");
+		for (Card card : foundCards){
+			System.out.println(card.getRowType());
+		}
+		assertEquals("Siege", foundCards.get(0).getRowType());
 	}
 }

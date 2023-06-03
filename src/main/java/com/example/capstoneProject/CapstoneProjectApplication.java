@@ -1,6 +1,5 @@
 package com.example.capstoneProject;
 
-import com.example.capstoneProject.models.Game;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
