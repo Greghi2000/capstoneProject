@@ -64,67 +64,67 @@ public class GameService {
         return null;
     }
 
-    public void startSetup() {
-        //prompt for player names
-        //check if player exists in DB (call playerDeckCheck())
-        //call getPlayerHand(), fetches the hand selection of the player from react
-
-        // Get player names and initialize players from react
-        //set players to gameclass
-
-        // Initialize the board
-        board = new Board(player1, player2);
-
-        // Start the game
-        playGame();
-    }
-
-    private void playGame() {
-        // Implement the main game loop
-        boolean gameOver = false;
-
-        while (!gameOver) {
-            // Begin the round
-            player1.setHasPassed(false);
-            player2.setHasPassed(false);
-
-            // Begin the turn for player1
-            playTurn(player1);
-
-            // Check if the round or game is over
-            if (isRoundOver()) {
-                endRound();
-                if (isGameOver()) {
-                    gameOver = true;
-                }
-            }
-
-            // Begin the turn for player2
-            playTurn(player2);
-
-            // Check if the round or game is over
-            if (isRoundOver()) {
-                endRound();
-                if (isGameOver()) {
-                    gameOver = true;
-                }
-            }
-        }
-
-        // End the game
-        endGame();
-    }
-
-    //playTurn()
-        //prompt player to make a move(choose a card to play)
-        //pass chosen card to board
-        //board then puts card in correct row for display and updates the row tally
-
-    private boolean isRoundOver() {
-
-        return (player1.getHand().isEmpty() && player2.getHand().isEmpty()) ||
-                (player1.isHasPassed() && player2.isHasPassed()) ||
-                (player1.getHand().isEmpty() && player2.isHasPassed()) ||
-                (player1.isHasPassed()  && player2.getHand().isEmpty());
-    }
+//    public void startSetup() {
+//        //prompt for player names
+//        //check if player exists in DB (call playerDeckCheck())
+//        //call getPlayerHand(), fetches the hand selection of the player from react
+//
+//        // Get player names and initialize players from react
+//        //set players to gameclass
+//
+//        // Initialize the board
+//        board = new Board(player1, player2);
+//
+//        // Start the game
+//        playGame();
+//    }
+//
+//    private void playGame() {
+//        // Implement the main game loop
+//        boolean gameOver = false;
+//
+//        while (!gameOver) {
+//            // Begin the round
+//            player1.setHasPassed(false);
+//            player2.setHasPassed(false);
+//
+//            // Begin the turn for player1
+//            playTurn(player1);
+//
+//            // Check if the round or game is over
+//            if (isRoundOver()) {
+//                endRound();
+//                if (isGameOver()) {
+//                    gameOver = true;
+//                }
+//            }
+//
+//            // Begin the turn for player2
+//            playTurn(player2);
+//
+//            // Check if the round or game is over
+//            if (isRoundOver()) {
+//                endRound();
+//                if (isGameOver()) {
+//                    gameOver = true;
+//                }
+//            }
+//        }
+//
+//        // End the game
+//        endGame();
+//    }
+//
+//    //playTurn()
+//        //prompt player to make a move(choose a card to play)
+//        //pass chosen card to board
+//        //board then puts card in correct row for display and updates the row tally
+//
+//    private boolean isRoundOver() {
+//
+//        return (player1.getHand().isEmpty() && player2.getHand().isEmpty()) ||
+//                (player1.isHasPassed() && player2.isHasPassed()) ||
+//                (player1.getHand().isEmpty() && player2.isHasPassed()) ||
+//                (player1.isHasPassed()  && player2.getHand().isEmpty());
+//    }
 }
