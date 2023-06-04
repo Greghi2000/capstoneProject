@@ -1,6 +1,7 @@
 import './App.css';
 import { useState, useEffect } from 'react';
 import Player from './components/Player';
+import PlayerNew from './components/PlayerNew';
 
 
 function App() {
@@ -17,7 +18,7 @@ function App() {
   
   return (
     <>
-    <Player/>
+    <PlayerNew/>
     {cards.length}
     </>
   )
