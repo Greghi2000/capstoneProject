@@ -5,10 +5,11 @@ import com.example.capstoneProject.models.Board;
 import com.example.capstoneProject.models.Cards.Card;
 import com.example.capstoneProject.models.Player;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-
+@Service
 public class GameService {
     Board board;
     Player player1;
