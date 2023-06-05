@@ -12,7 +12,7 @@ const Player = () => {
     e.preventDefault();
 
     try {
-      const response = await axios.post('http://localhost:8080/api/players', { name: playerName });
+      const response = await axios.post('http://localhost:8080/api/players', { name: playerName, lives: 2 });
       // Handle the response if needed
       console.log(response.data);
 

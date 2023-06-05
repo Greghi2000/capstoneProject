@@ -4,21 +4,29 @@ import com.example.capstoneProject.controller.CardController;
 import com.example.capstoneProject.models.Board;
 import com.example.capstoneProject.models.Cards.Card;
 import com.example.capstoneProject.models.Player;
+import com.example.capstoneProject.repositories.CardRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+
 @Service
 public class GameService {
     Board board;
     Player player1;
     Player player2;
 
-    public GameService() {
+    CardRepository cardRepository;
+
+    public GameService(CardRepository cardRepository) {
         this.board = null;
         this.player1 = null;
         this.player2 = null;
+        this.cardRepository = cardRepository;
     }
 
     public Board getBoard() {
@@ -50,9 +58,18 @@ public class GameService {
         System.out.println(controller.getAllCards());
         return controller.getAllCards();
     }
-    public ArrayList<Card> generateNewDeck(){
-
-        return null;
+    public ArrayList<Card> starterDeck(Player player) {
+        ArrayList<Card> deck = new ArrayList<>();
+        int i = 0;
+        while (i <= 29) {
+            double randomNum = Math.random();
+            long finalRandomNum = Math.round(randomNum * 60);
+            Card cardFromDb = cardRepository.getReferenceById(finalRandomNum);
+            deck.add(cardFromDb);
+            i++;
+        }
+        player.setDeck(deck);
+        return deck;
     }
     public ArrayList<Card> fetchPlayerDeck(Player player){
         player.getDeck();
