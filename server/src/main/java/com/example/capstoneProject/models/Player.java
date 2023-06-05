@@ -2,14 +2,32 @@ package com.example.capstoneProject.models;
 
 import com.example.capstoneProject.models.Cards.Card;
 
+import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.List;
 
+@Entity
+@Table(name = "players")
 public class Player {
-    String name;
-    ArrayList<Card> deck;
-    ArrayList<Card> hand;
-    int lives;
-    boolean hasPassed;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
+
+    @Column(name = "name")
+    private String name;
+
+    @OneToMany(cascade = CascadeType.ALL)
+    private List<Card> deck;
+
+    @OneToMany(cascade = CascadeType.ALL)
+    private List<Card> hand;
+
+    @Column(name = "lives")
+    private int lives;
+
+    @Column(name = "has_passed")
+    private boolean hasPassed;
 
     public Player(String name){
         this.name = name;
@@ -30,19 +48,19 @@ public class Player {
         this.name = name;
     }
 
-    public ArrayList<Card> getDeck() {
+    public List<Card> getDeck() {
         return deck;
     }
 
-    public void setDeck(ArrayList<Card> deck) {
+    public void setDeck(List<Card> deck) {
         this.deck = deck;
     }
 
-    public ArrayList<Card> getHand() {
+    public List<Card> getHand() {
         return hand;
     }
 
-    public void setHand(ArrayList<Card> hand) {
+    public void setHand(List<Card> hand) {
         this.hand = hand;
     }
 
