@@ -58,19 +58,19 @@ public class GameService {
         System.out.println(controller.getAllCards());
         return controller.getAllCards();
     }
-    public ArrayList<Card> starterDeck(Player player) {
-        ArrayList<Card> deck = new ArrayList<>();
-        int i = 0;
-        while (i <= 29) {
-            double randomNum = Math.random();
-            long finalRandomNum = Math.round(randomNum * 60);
-            Card cardFromDb = cardRepository.getReferenceById(finalRandomNum);
-            deck.add(cardFromDb);
-            i++;
-        }
-        player.setDeck(deck);
-        return deck;
-    }
+//    public ArrayList<Card> starterDeck(Player player) {
+//        ArrayList<Card> deck = new ArrayList<>();
+//        int i = 0;
+//        while (i <= 29) {
+//            double randomNum = Math.random();
+//            long finalRandomNum = Math.round(randomNum * 60);
+//            Card cardFromDb = cardRepository.getReferenceById(finalRandomNum);
+//            deck.add(cardFromDb);
+//            i++;
+//        }
+//        player.setDeck(deck);
+//        return deck;
+//    }
     public ArrayList<Card> fetchPlayerDeck(Player player){
         player.getDeck();
         return null;

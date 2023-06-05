@@ -56,13 +56,13 @@ class CapstoneProjectApplicationTests {
 		}
 		assertEquals("Siege", foundCards.get(0).getRowType());
 	}
-	@Test
-	public void canGetStarterDeck(){
-		Player player = new Player("Hello");
-		playerRepository.save(player);
-		GameService newGame = new GameService(cardRepository);
-		newGame.starterDeck(player);
-		System.out.println(player.getDeck());
-		assertEquals(player.getDeck().size(), 30);
-	}
+//	@Test
+//	public void canGetStarterDeck(){
+//		Player player = new Player("Hello");
+//		playerRepository.save(player);
+//		GameService newGame = new GameService(cardRepository);
+//		newGame.starterDeck(player);
+//		System.out.println(player.getDeck());
+//		assertEquals(player.getDeck().size(), 30);
+//	}
 }

@@ -17,10 +17,11 @@ public class Player {
     @Column(name = "name")
     private String name;
 
-    @OneToMany(cascade = CascadeType.ALL)
-    private List<Card> deck;
+//    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "player", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Deck> deck;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @Transient
     private List<Card> hand;
 
     @Column(name = "lives")
@@ -40,6 +41,14 @@ public class Player {
     public Player() {
     }
 
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
     public String getName() {
         return name;
     }
@@ -48,11 +57,11 @@ public class Player {
         this.name = name;
     }
 
-    public List<Card> getDeck() {
+    public List<Deck> getDeck() {
         return deck;
     }
 
-    public void setDeck(List<Card> deck) {
+    public void setDeck(List<Deck> deck) {
         this.deck = deck;
     }
 
