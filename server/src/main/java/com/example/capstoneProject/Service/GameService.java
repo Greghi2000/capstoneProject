@@ -66,7 +66,7 @@ public class GameService {
     }
 
 //    public void startSetup() {
-//        //prompt for player names
+//        //wait for react to get player names
 //        //check if player exists in DB (call playerDeckCheck())
 //        //call getPlayerHand(), fetches the hand selection of the player from react
 //
