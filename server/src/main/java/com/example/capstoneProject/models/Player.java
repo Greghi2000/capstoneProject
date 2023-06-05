@@ -19,6 +19,9 @@ public class Player {
         hasPassed = false;
     }
 
+    public Player() {
+    }
+
     public String getName() {
         return name;
     }
