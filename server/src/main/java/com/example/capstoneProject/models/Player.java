@@ -1,6 +1,7 @@
 package com.example.capstoneProject.models;
 
 import com.example.capstoneProject.models.Cards.Card;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -17,9 +18,28 @@ public class Player {
     @Column(name = "name")
     private String name;
 
-//    @OneToMany(cascade = CascadeType.ALL)
-    @OneToMany(mappedBy = "player", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Deck> deck;
+
+
+//    @JsonIgnoreProperties({"players"})
+    @ManyToMany
+    @JoinTable(
+            name = "decks",
+            joinColumns = {
+                    @JoinColumn(
+                            name = "player_id",
+                            nullable = false,
+                            updatable = false
+                    )
+            },
+            inverseJoinColumns = {
+                    @JoinColumn(
+                            name = "card_id",
+                            nullable = false,
+                            updatable = false
+                    )
+            }
+    )
+    private List<Card> deck;
 
     @Transient
     private List<Card> hand;
@@ -57,11 +77,11 @@ public class Player {
         this.name = name;
     }
 
-    public List<Deck> getDeck() {
+    public List<Card> getDeck() {
         return deck;
     }
 
-    public void setDeck(List<Deck> deck) {
+    public void setDeck(List<Card> deck) {
         this.deck = deck;
     }
 
