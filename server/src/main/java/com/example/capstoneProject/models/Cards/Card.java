@@ -1,6 +1,10 @@
 package com.example.capstoneProject.models.Cards;
 
+import com.example.capstoneProject.models.Player;
+
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "cards")
@@ -74,6 +78,29 @@ public class Card {
     @Column(name = "row_type")
     private String rowType;
 
+    @ManyToMany
+    @JoinTable(
+            name = "decks",
+            joinColumns = {
+                    @JoinColumn(
+                            name = "card_id",
+                            nullable = false,
+                            updatable = false
+                    )
+            },
+            inverseJoinColumns = {
+                    @JoinColumn(
+                            name = "player_id",
+                            nullable = false,
+                            updatable = false
+                    )
+            }
+    )
+
+    private List<Player> players;
+
+
+
     // Constructor
     public Card(String name, String category, String ability, String abilityHtml, String keywordHtml, String flavor,
                 int art, int card, int audio, String cardSet, String cardType, int armor, String color, int unusedPower,
@@ -101,18 +128,27 @@ public class Card {
         this.power = power;
         this.factionSecondary = factionSecondary;
         this.rowType = rowType;
+        this.players = new ArrayList<>();
     }
 
     public Card() {
     }
 
-//    public long getId() {
-//        return id;
-//    }
-//
-//    public void setId(long id) {
-//        this.id = id;
-//    }
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public List<Player> getPlayers() {
+        return players;
+    }
+
+    public void setPlayers(List<Player> players) {
+        this.players = players;
+    }
 
     public String getName() {
         return name;
