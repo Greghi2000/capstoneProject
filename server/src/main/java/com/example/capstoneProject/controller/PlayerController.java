@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 
 @RestController
@@ -30,8 +31,8 @@ public class PlayerController {
         return new ResponseEntity<>(playerRepository.findAll(), HttpStatus.OK);
     }
     @GetMapping(value = "/api/players/{id}")
-    public ResponseEntity<List<Player>> getPlayerById() {
-        return  new ResponseEntity<>(playerRepository.findAll(), HttpStatus.OK);
+    public ResponseEntity<Optional<Player>> getPlayerById(@PathVariable Long id) {
+        return  new ResponseEntity<>(playerRepository.findById(id), HttpStatus.OK);
     }
 }
 
