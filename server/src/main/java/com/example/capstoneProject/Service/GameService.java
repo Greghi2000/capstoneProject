@@ -53,17 +53,17 @@ public class GameService {
         this.player2 = player2;
     }
 
-    public ResponseEntity<List<Card>> getData(){
-        CardController controller = new CardController();
-        System.out.println(controller.getAllCards());
-        return controller.getAllCards();
-    }
+//    public ResponseEntity<List<Card>> getData(){
+//        CardController controller = new CardController();
+//        System.out.println(controller.getAllCards());
+//        return controller.getAllCards();
+//    }
     public ArrayList<Card> starterDeck(Player player) {
         ArrayList<Card> deck = new ArrayList<>();
         int i = 1;
-        while (i <=3) {
+        while (i <=10) {
             double randomNum = Math.random();
-            long finalRandomNum = Math.round((randomNum +1) * 5);
+            long finalRandomNum = Math.round((randomNum * 25)+1);
             Card cardFromDb = cardRepository.getReferenceById(finalRandomNum);
             cardFromDb.getPlayers().add(player);
             cardRepository.save(cardFromDb);

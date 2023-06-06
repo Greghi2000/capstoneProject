@@ -25,5 +25,13 @@ public class PlayerController {
         playerRepository.save(player);
         return player;
     }
+    @GetMapping(value = "/api/players")
+    public ResponseEntity<List<Player>> getAllPlayers() {
+        return new ResponseEntity<>(playerRepository.findAll(), HttpStatus.OK);
+    }
+    @GetMapping(value = "/api/players/{id}")
+    public ResponseEntity<List<Player>> getPlayerById() {
+        return  new ResponseEntity<>(playerRepository.findAll(), HttpStatus.OK);
+    }
 }
 
