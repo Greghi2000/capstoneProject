@@ -1,6 +1,7 @@
 package com.example.capstoneProject.models.Cards;
 
 import com.example.capstoneProject.models.Player;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -77,7 +78,7 @@ public class Card {
 
     @Column(name = "row_type")
     private String rowType;
-
+    @JsonIgnoreProperties({"cards"})
     @ManyToMany
     @JoinTable(
             name = "decks",
