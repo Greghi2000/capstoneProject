@@ -16,19 +16,19 @@ public class Card {
     @Column(name = "name")
     private String name;
 
-    @Column(name = "category")
+    @Column(name = "category", columnDefinition = "TEXT")
     private String category;
 
-    @Column(name = "ability")
+    @Column(name = "ability", columnDefinition = "TEXT")
     private String ability;
 
-    @Column(name = "ability_html")
+    @Column(name = "ability_html", columnDefinition = "TEXT")
     private String abilityHtml;
 
-    @Column(name = "keyword_html")
+    @Column(name = "keyword_html", columnDefinition = "TEXT")
     private String keywordHtml;
 
-    @Column(name = "flavor")
+    @Column(name = "flavor", columnDefinition = "TEXT")
     private String flavor;
 
     @Column(name = "art")
