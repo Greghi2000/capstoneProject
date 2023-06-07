@@ -1,8 +1,9 @@
 package com.example.capstoneProject.Service;
 
-import com.example.capstoneProject.controller.CardController;
+//import com.example.capstoneProject.controller.CardController;
 import com.example.capstoneProject.models.Board;
 import com.example.capstoneProject.models.Cards.Card;
+import com.example.capstoneProject.models.GameState;
 import com.example.capstoneProject.models.Player;
 import com.example.capstoneProject.repositories.CardRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,12 +23,31 @@ public class GameService {
     Player player2;
 
     CardRepository cardRepository;
+    GameState gameState;
 
     public GameService(CardRepository cardRepository) {
         this.board = null;
         this.player1 = null;
         this.player2 = null;
         this.cardRepository = cardRepository;
+        this.gameState = null;
+    }
+
+    // gamecontroller{ (POST) -> /api/game/start -> gameservice.startNewGame() -> instantiate a new gamestate object}
+    // gamecontroller{ (GET) -> /api/game/getCurrent/id -> gameservice.getCurrentGame() -> return the gamestate ID}
+
+    public void startGame(){
+        GameState gameState = new GameState();
+        setGameState(gameState);
+        System.out.println("GAME WAS STARTED");
+    }
+
+    public GameState getGameState() {
+        return gameState;
+    }
+
+    public void setGameState(GameState gameState) {
+        this.gameState = gameState;
     }
 
     public Board getBoard() {

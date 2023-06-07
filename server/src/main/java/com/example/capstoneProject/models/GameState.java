@@ -17,6 +17,9 @@ public class GameState {
 //        this.gameService = gameService;
     }
 
+    public GameState() {
+    }
+
     public Player getCurrentPlayer() {
         return currentPlayer;
     }

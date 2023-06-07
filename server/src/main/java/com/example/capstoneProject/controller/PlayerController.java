@@ -35,10 +35,8 @@ public class PlayerController {
         return  new ResponseEntity<>(playerRepository.findById(id), HttpStatus.OK);
     }
     @PostMapping(value = "/api/players/hand")
-//    public ArrayList<Card> createHand(@RequestBody ArrayList<Card> hand) {
-    public String createHand(@RequestBody String hand) {
+    public List<Card> createHand(@RequestBody List<Card> hand) {
         System.out.println(hand);
-//        playerRepository.save(player);
         return hand;
     }
 }

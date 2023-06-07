@@ -16,7 +16,7 @@ const Hand = ({ chosenPlayer }) => {
         e.preventDefault();
     
         try {
-            const response = await axios.post('http://localhost:8080/api/players/hand', { hand });
+            const response = await axios.post('http://localhost:8080/api/players/hand', hand); // No need to have curly brackets because that makes hand the key value for the obj
             console.log(response.data);
         } catch (error) {
             console.error(error);
