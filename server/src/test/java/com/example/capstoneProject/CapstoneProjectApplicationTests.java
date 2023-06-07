@@ -63,6 +63,6 @@ class CapstoneProjectApplicationTests {
 		GameService newGame = new GameService(cardRepository);
 		newGame.starterDeck(player);
 		System.out.println(player.getDeck());
-		assertEquals(player.getDeck().size(), 10);
+		assertEquals(player.getDeck().size(), 30);
 	}
 }

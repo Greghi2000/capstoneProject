@@ -1,6 +1,6 @@
 import './App.css';
 import { useState, useEffect } from 'react';
-import Player from './components/Player';
+import Hand from './components/Hand';
 import PlayerNew from './components/PlayerNew';
 
 
@@ -22,7 +22,7 @@ function App() {
       .then(players => setPlayers(players))
     },[])
     useEffect(() => {
-      fetch('http://localhost:8080/api/players/12')
+      fetch('http://localhost:8080/api/players/4')
       .then(res => res.json())
       .then(player => setChosenPlayer(player))
     },[])
@@ -32,14 +32,15 @@ function App() {
   
   return (
       <>
-        <PlayerNew />
+        <PlayerNew/>
         {cards.length}
         {players.length}
-        {chosenPlayer.deck && chosenPlayer.deck.map((card) => (
+        {/* {chosenPlayer.deck && chosenPlayer.deck.map((card) => (
           <div key={card.id}>
             <p>Name of Card: {card.name} || Power: {card.power}</p>
           </div>
-        ))}
+        ))} */}
+          <Hand chosenPlayer = {chosenPlayer}/>
       </>
     );
 }

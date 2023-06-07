@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class GameService {
@@ -58,21 +59,26 @@ public class GameService {
 //        System.out.println(controller.getAllCards());
 //        return controller.getAllCards();
 //    }
-    public ArrayList<Card> starterDeck(Player player) {
-        ArrayList<Card> deck = new ArrayList<>();
-        int i = 1;
-        while (i <=10) {
-            double randomNum = Math.random();
-            long finalRandomNum = Math.round((randomNum * 25)+1);
-            Card cardFromDb = cardRepository.getReferenceById(finalRandomNum);
-            cardFromDb.getPlayers().add(player);
-            cardRepository.save(cardFromDb);
-            deck.add(cardFromDb);
-            i++;
+public ArrayList<Card> starterDeck(Player player) {
+    ArrayList<Card> deck = new ArrayList<>();
+    int i = 1;
+    while (i <= 30) {
+        double randomNum = Math.random();
+        long finalRandomNum = Math.round((randomNum * 45) + 1);
+        boolean existsInDeck = deck.stream().anyMatch(card -> card.getId() == finalRandomNum);
+        if (existsInDeck) {
+            continue;
         }
-        player.setDeck(deck);
-        return deck;
+        Card cardFromDb = cardRepository.getReferenceById(finalRandomNum);
+        cardFromDb.getPlayers().add(player);
+        cardRepository.save(cardFromDb);
+        deck.add(cardFromDb);
+        i++;
     }
+    player.setDeck(deck);
+    return deck;
+}
+
     public ArrayList<Card> fetchPlayerDeck(Player player){
         player.getDeck();
         return null;

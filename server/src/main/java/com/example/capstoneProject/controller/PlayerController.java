@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -33,6 +34,13 @@ public class PlayerController {
     @GetMapping(value = "/api/players/{id}")
     public ResponseEntity<Optional<Player>> getPlayerById(@PathVariable Long id) {
         return  new ResponseEntity<>(playerRepository.findById(id), HttpStatus.OK);
+    }
+    @PostMapping(value = "/api/players/hand")
+    public ArrayList<Card> createPlayer(@RequestBody ArrayList<Card> hand) {
+//    public String createPlayer(@RequestBody String string) {
+        System.out.println(hand);
+//        playerRepository.save(player);
+        return hand;
     }
 }
 
