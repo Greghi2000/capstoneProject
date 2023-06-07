@@ -22,7 +22,6 @@ public class PlayerController {
 
     @PostMapping(value = "/api/players")
     public Player createPlayer(@RequestBody Player player) {
-//    public String createPlayer(@RequestBody String string) {
         System.out.println(player.getName());
         playerRepository.save(player);
         return player;
@@ -36,8 +35,8 @@ public class PlayerController {
         return  new ResponseEntity<>(playerRepository.findById(id), HttpStatus.OK);
     }
     @PostMapping(value = "/api/players/hand")
-    public ArrayList<Card> createPlayer(@RequestBody ArrayList<Card> hand) {
-//    public String createPlayer(@RequestBody String string) {
+//    public ArrayList<Card> createHand(@RequestBody ArrayList<Card> hand) {
+    public String createHand(@RequestBody String hand) {
         System.out.println(hand);
 //        playerRepository.save(player);
         return hand;
