@@ -312,11 +312,9 @@ public class DataLoader implements ApplicationRunner {
                         card.getPower(),
                         card.getFactionSecondary(),
                         card.getRowType()
-
                 );
                 updatedCards.add(duplicateCard);
             }
-            updatedCards.add(card);
         }
 
         for (Card updatedCard : updatedCards) {
