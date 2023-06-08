@@ -38,7 +38,7 @@ public class GameController {
         return gameState;
     }
     @PostMapping(value = "/api/game/start")
-    public void startGame(@RequestBody ArrayList<Player> players) {
+    public ResponseEntity<HttpStatus> startGame(@RequestBody ArrayList<Player> players) {
         // add the two players to the array list
 //        gameService.startGame();
 //        gameService.setListOfPlayers(players);
@@ -52,7 +52,26 @@ public class GameController {
         gameService.startGame();
         gameService.getGameState().setListOfPlayers(players);
         gameService.setActivePlayerForStart(); //need to make sure to set active player in gameState in this method
-//
+
+        System.out.println("This is the list of players" + gameService.getGameState().getListOfPlayers());
+        Player player1 = gameService.getGameState().getListOfPlayers().get(0);
+        Player player2 = gameService.getGameState().getListOfPlayers().get(1);
+
+        playerRepository.save(player1);
+        playerRepository.save(player2);
+
+        gameService.starterDeck(player1);
+        gameService.starterDeck(player2);
+
+        System.out.println("current player deck:" + gameService.getGameState().getCurrentPlayer().getDeck());
+        return new ResponseEntity<>(HttpStatus.OK);
 
     }
+    @GetMapping(value = "/api/gamestate/deck")
+    public ResponseEntity<Player> getDeckFromGameState() {
+        return new ResponseEntity<>(gameService.getGameState().getCurrentPlayer(), HttpStatus.OK);
+    }
+
+
+
 }
