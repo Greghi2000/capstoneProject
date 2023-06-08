@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -37,7 +38,21 @@ public class GameController {
         return gameState;
     }
     @PostMapping(value = "/api/game/start")
-    public void startGame() {
+    public void startGame(@RequestBody ArrayList<Player> players) {
+        // add the two players to the array list
+//        gameService.startGame();
+//        gameService.setListOfPlayers(players);
+//        gameService.
+//        gameService.setActivePlayerForStart();
+//        System.out.println("These are the players that will play " + players);
+//        System.out.println(gameService.getCurrentPlayer().getName());
+//
+//        gameService.getGameState().getListOfPlayers();
+
         gameService.startGame();
+        gameService.getGameState().setListOfPlayers(players);
+        gameService.setActivePlayerForStart(); //need to make sure to set active player in gameState in this method
+//
+
     }
 }

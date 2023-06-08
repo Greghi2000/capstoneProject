@@ -2,6 +2,7 @@ import './App.css';
 import { useState, useEffect } from 'react';
 import Hand from './components/Hand';
 import PlayerNew from './components/PlayerNew';
+import Game from './components/Game';
 
 
 function App() {
@@ -22,7 +23,7 @@ function App() {
       .then(players => setPlayers(players))
     },[])
     useEffect(() => {
-      fetch('http://localhost:8080/api/players/4')
+      fetch('http://localhost:8080/api/players/1')
       .then(res => res.json())
       .then(player => setChosenPlayer(player))
     },[])
@@ -41,6 +42,7 @@ function App() {
           </div>
         ))} */}
           <Hand chosenPlayer = {chosenPlayer}/>
+          <Game/>
       </>
     );
 }

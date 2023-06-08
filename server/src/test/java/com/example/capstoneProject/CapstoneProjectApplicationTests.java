@@ -1,7 +1,7 @@
 package com.example.capstoneProject;
 
 import com.example.capstoneProject.Service.GameService;
-import com.example.capstoneProject.controller.CardController;
+//import com.example.capstoneProject.controller.CardController;
 import com.example.capstoneProject.models.Cards.Card;
 import com.example.capstoneProject.models.Player;
 import com.example.capstoneProject.repositories.CardRepository;
@@ -17,8 +17,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @SpringBootTest
 class CapstoneProjectApplicationTests {
 
-	@Autowired
-	CardController cardController;
+//	@Autowired
+//	CardController cardController;
 	@Autowired
 	CardRepository cardRepository;
 	@Autowired

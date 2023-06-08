@@ -1,4 +1,5 @@
 package com.example.capstoneProject.controller;
+import com.example.capstoneProject.Service.GameService;
 import com.example.capstoneProject.models.Cards.Card;
 import com.example.capstoneProject.models.Player;
 import com.example.capstoneProject.repositories.PlayerRepository;
@@ -19,6 +20,8 @@ public class PlayerController {
 
     @Autowired
     PlayerRepository playerRepository;
+    @Autowired
+    GameService gameService;
 
     @PostMapping(value = "/api/players")
     public Player createPlayer(@RequestBody Player player) {
@@ -37,6 +40,7 @@ public class PlayerController {
     @PostMapping(value = "/api/players/hand")
     public List<Card> createHand(@RequestBody List<Card> hand) {
         System.out.println(hand);
+        gameService.chooseHand(hand);
         return hand;
     }
 }

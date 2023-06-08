@@ -6,7 +6,7 @@ const Hand = ({ chosenPlayer }) => {
 
     const handleClick = (card, name, power) => {
         console.log(`Clicked on card - Name: ${name} | Power: ${power}`)
-        if (hand.length < 10) {
+        if (hand.length < 10) { // if card is already in array, do not allow to be added again
             setHand((prevHand) => [...prevHand, card]);
         }
         console.log(`Current array list: ${hand}`)
