@@ -20,8 +20,20 @@ const Game = () => {
     try {
         const response = await axios.post('http://localhost:8080/api/game/start', players );
         // Handle the response if needed
-        console.log(response.data);
-        console.log(players);
+        console.log(response.status);
+        console.log("These are the players from game/start " + players);
+        if(response.status === 200){
+            try {
+                const response = await axios.get('http://localhost:8080/api/gamestate/deck');
+                // Handle the response if needed
+                console.log(response.data);
+          
+                // Clear the form after successful submission
+              } catch (error) {
+                // Handle the error if needed
+                console.error(error);
+              }
+        }
 
       } catch (error) {
         // Handle the error if needed

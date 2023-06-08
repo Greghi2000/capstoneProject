@@ -6,6 +6,7 @@ import com.example.capstoneProject.models.Cards.Card;
 import com.example.capstoneProject.models.GameState;
 import com.example.capstoneProject.models.Player;
 import com.example.capstoneProject.repositories.CardRepository;
+import com.example.capstoneProject.repositories.PlayerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
@@ -23,6 +24,8 @@ public class GameService {
     private ArrayList<Player> listOfPlayers;
 
     CardRepository cardRepository;
+
+    PlayerRepository playerRepository;
     GameState gameState;
 
     public GameService(CardRepository cardRepository) {
@@ -30,7 +33,7 @@ public class GameService {
         this.currentPlayer = currentPlayer;
         this.listOfPlayers = listOfPlayers;
         this.cardRepository = cardRepository;
-        this.gameState = null;
+        this.gameState = new GameState();
     }
 
     // gamecontroller{ (POST) -> /api/game/start -> gameservice.startNewGame() -> instantiate a new gamestate object}
@@ -38,12 +41,13 @@ public class GameService {
 
     public void startGame(){
         GameState gameState = new GameState();
-        setGameState(gameState);
+        this.setGameState(gameState);
         System.out.println("GAME WAS STARTED");
     }
     public void setActivePlayerForStart(){
         Player activePlayer = gameState.getListOfPlayers().get(0);
         gameState.setCurrentPlayer(activePlayer);
+
     }
     public void togglePlayer(){
         Player retreivedActivePlayer = this.getCurrentPlayer();
@@ -116,6 +120,22 @@ public ArrayList<Card> starterDeck(Player player) {
         i++;
     }
     player.setDeck(deck);
+
+
+
+//    ArrayList<Player> listOfGSPlayers = getGameState().getListOfPlayers();
+//    System.out.println(getGameState().getListOfPlayers());
+//    for (Player playerGS : listOfGSPlayers) {
+//        if (player.getName() == playerGS.getName()) {
+//            playerGS.setDeck(deck);
+//        }
+//    }
+
+//    for (Player thisPlayer : gameState.getListOfPlayers()){
+//        if(player.getId() == thisPlayer.getId()){
+//            thisPlayer = player;
+//        }
+//    }
     return deck;
 }
 
@@ -131,7 +151,8 @@ public ArrayList<Card> starterDeck(Player player) {
     }
 
     public void chooseHand(List<Card> hand) {
-        this.currentPlayer.setHand(hand);
+        System.out.println(getGameState());
+//        getGameState().getCurrentPlayer().setHand(hand);
         System.out.println("This is the hand that we got from reat!!!" + hand);
     }
 

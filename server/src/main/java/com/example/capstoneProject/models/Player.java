@@ -20,7 +20,7 @@ public class Player {
 
 
 
-    @JsonIgnoreProperties({"players"})
+    @JsonIgnoreProperties({"players", "hibernateLazyInitializer"})
     @ManyToMany
     @JoinTable(
             name = "decks",
