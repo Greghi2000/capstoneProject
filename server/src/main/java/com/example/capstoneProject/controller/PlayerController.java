@@ -33,7 +33,7 @@ public class PlayerController {
     public ResponseEntity<List<Player>> getAllPlayers() {
         return new ResponseEntity<>(playerRepository.findAll(), HttpStatus.OK);
     }
-    @GetMapping(value = "/api/players/{id}")
+    @GetMapping(value = "/api/player/{id}")
     public ResponseEntity<Optional<Player>> getPlayerById(@PathVariable Long id) {
         return  new ResponseEntity<>(playerRepository.findById(id), HttpStatus.OK);
     }

@@ -9,7 +9,7 @@ function App() {
 
   const [cards, setCards] = useState([]);
   const [players, setPlayers] = useState([]);
-  const [chosenPlayer, setChosenPlayer] = useState([]);
+  const [chosenPlayer, setChosenPlayer] = useState(null);
   const [activePlayerId, setActivePlayerId] = useState("");
   const [activePlayerHand, setActivePlayerHand] = useState([]);
 
@@ -18,26 +18,31 @@ function App() {
       .then(res => res.json())
       .then(cards => setCards(cards))
     },[])
-
+    
+    //Does this run at the start: what players is it getting?
     useEffect(() => {
       fetch('http://localhost:8080/api/players')
       .then(res => res.json())
       .then(players => setPlayers(players))
     },[])
+
     useEffect(() => {
-      fetch(`http://localhost:8080/api/players/${activePlayerId}`)
+        fetch(`http://localhost:8080/api/player/${activePlayerId}`)
+        .then(res => res.json())
+        .then(player => setChosenPlayer(player))
+      },[activePlayerId])
+
+console.log("Chosen Player is right now: " + chosenPlayer.name)
+      
+
+
+    useEffect(() => {
+      console.log("chosenPlayer changed NOW")
+      fetch('http://localhost:8080/api/gamestate/getActivePlayer')
       .then(res => res.json())
-      .then(player => setChosenPlayer(player))
-    },[activePlayerId])
-    console.log(chosenPlayer)
-    // useEffect(() => {
-    //   if (Object.keys(chosenPlayer).length > 0)
-    //   console.log("chosenPlayer changed NOW")
-    //   fetch('http://localhost:8080/api/gamestate/getHand')
-    //   .then(res => res.json())
-    //   .then(hand => setActivePlayerHand(hand))
-    // },[chosenPlayer])
-    // console.log("ActivePlayerHand " + activePlayerHand.hand)
+      .then(player => setActivePlayerHand(player.hand))
+    },[chosenPlayer])
+    console.log("ActivePlayerHand from line 42 " + activePlayerHand)
   
   
   
