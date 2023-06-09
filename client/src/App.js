@@ -10,6 +10,8 @@ function App() {
   const [cards, setCards] = useState([]);
   const [players, setPlayers] = useState([]);
   const [chosenPlayer, setChosenPlayer] = useState([]);
+  const [activePlayerId, setActivePlayerId] = useState("");
+  const [activePlayerHand, setActivePlayerHand] = useState([]);
 
   useEffect(() => {
       fetch('http://localhost:8080/cards')
@@ -23,11 +25,19 @@ function App() {
       .then(players => setPlayers(players))
     },[])
     useEffect(() => {
-      fetch('http://localhost:8080/api/players/1')
+      fetch(`http://localhost:8080/api/players/${activePlayerId}`)
       .then(res => res.json())
       .then(player => setChosenPlayer(player))
-    },[])
+    },[activePlayerId])
     console.log(chosenPlayer)
+    // useEffect(() => {
+    //   if (Object.keys(chosenPlayer).length > 0)
+    //   console.log("chosenPlayer changed NOW")
+    //   fetch('http://localhost:8080/api/gamestate/getHand')
+    //   .then(res => res.json())
+    //   .then(hand => setActivePlayerHand(hand))
+    // },[chosenPlayer])
+    // console.log("ActivePlayerHand " + activePlayerHand.hand)
   
   
   
@@ -42,7 +52,7 @@ function App() {
           </div>
         ))} */}
           <Hand chosenPlayer = {chosenPlayer}/>
-          <Game/>
+          <Game setActivePlayerId = {setActivePlayerId}/>
       </>
     );
 }

@@ -71,7 +71,10 @@ public class GameController {
     public ResponseEntity<Player> getDeckFromGameState() {
         return new ResponseEntity<>(gameService.getGameState().getCurrentPlayer(), HttpStatus.OK);
     }
-
+    @GetMapping(value = "/api/gamestate/getHand")
+    public ResponseEntity<Player> getHandFromGameState() {
+        return new ResponseEntity<>(gameService.getGameState().getCurrentPlayer(), HttpStatus.OK);
+    }
 
 
 }

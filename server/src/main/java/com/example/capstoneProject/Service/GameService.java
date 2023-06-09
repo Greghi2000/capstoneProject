@@ -30,7 +30,7 @@ public class GameService {
 
     public GameService(CardRepository cardRepository) {
         this.board = null;
-        this.currentPlayer = currentPlayer;
+//        this.currentPlayer = currentPlayer;
         this.listOfPlayers = listOfPlayers;
         this.cardRepository = cardRepository;
         this.gameState = new GameState();
@@ -151,9 +151,8 @@ public ArrayList<Card> starterDeck(Player player) {
     }
 
     public void chooseHand(List<Card> hand) {
-        System.out.println(getGameState());
-//        getGameState().getCurrentPlayer().setHand(hand);
-        System.out.println("This is the hand that we got from reat!!!" + hand);
+        getGameState().getCurrentPlayer().setHand(hand);
+        System.out.println("This is the hand that we got from reat!!!" + getGameState().getCurrentPlayer().getHand());
     }
 
 //    public void startSetup() {

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import axios from 'axios';
 
-const Game = () => {
+const Game = ({setActivePlayerId}) => {
   const [players, setPlayers] = useState([]);
   const [activePlayer, setActivePlayer] = useState("");
 
@@ -26,7 +26,8 @@ const Game = () => {
             try {
                 const response = await axios.get('http://localhost:8080/api/gamestate/deck');
                 // Handle the response if needed
-                console.log(response.data);
+                console.log(response.data.id);
+                setActivePlayerId(response.data.id);
           
                 // Clear the form after successful submission
               } catch (error) {

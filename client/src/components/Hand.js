@@ -27,7 +27,7 @@ const Hand = ({ chosenPlayer }) => {
         <>
             {chosenPlayer.deck &&
                 chosenPlayer.deck.map((card) => (
-                    <div key={card.id}>
+                    <div >
                         <p onClick={() => handleClick(card, card.name, card.power)}>
                             Name of Card: {card.name} || Power: {card.power}
                         </p>
