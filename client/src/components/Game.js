@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import axios from 'axios';
 
+//this component handles the creation of new players and creates a deck of cards for them
+
 const Game = ({setActivePlayerId}) => {
   const [players, setPlayers] = useState([]);
   const [activePlayer, setActivePlayer] = useState("");
@@ -18,13 +20,13 @@ const Game = ({setActivePlayerId}) => {
   const handleStartGame = async (e) => {
     e.preventDefault();
     try {
-        const response = await axios.post('http://localhost:8080/api/game/start', players );
+        const response = await axios.post('http://localhost:8080/api/game/initialise', players );
         // Handle the response if needed
         console.log(response.status);
-        console.log("These are the players from game/start " + players);
+        console.log("These are the players from game/initialise " + players);
         if(response.status === 200){
             try {
-                const response = await axios.get('http://localhost:8080/api/gamestate/deck');
+                const response = await axios.get('http://localhost:8080/api/gamestate/getActivePlayer');
                 // Handle the response if needed
                 console.log(response.data.id);
                 setActivePlayerId(response.data.id);
@@ -63,7 +65,7 @@ const Game = ({setActivePlayerId}) => {
       {/* Render the list of players */}
       <ul>
         {players.map((player, index) => (
-          <li key={index}>{player}</li>
+          <li>{player}</li>
         ))}
       </ul>
     </div>

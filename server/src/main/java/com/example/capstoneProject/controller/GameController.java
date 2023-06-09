@@ -24,30 +24,14 @@ public class GameController {
     CardRepository cardRepository;
     @Autowired
     GameService gameService;
-    @GetMapping(value = "/cards")
-    public ResponseEntity<List<Card>> getAllCards(){
-        return new ResponseEntity<>(cardRepository.findAll(), HttpStatus.OK);
-    }
-    @GetMapping(value = "/api/gamestate")
-    public ResponseEntity<GameState> getGameState() {
-        return new ResponseEntity<>(new GameState(null, null, null), HttpStatus.OK);
-    }
-    @PostMapping(value = "/api/gamestate")
-    public GameState createGameState(@RequestBody GameState gameState) {
-        System.out.println(gameState);
-        return gameState;
-    }
-    @PostMapping(value = "/api/game/start")
-    public ResponseEntity<HttpStatus> startGame(@RequestBody ArrayList<Player> players) {
-        // add the two players to the array list
-//        gameService.startGame();
-//        gameService.setListOfPlayers(players);
-//        gameService.
-//        gameService.setActivePlayerForStart();
-//        System.out.println("These are the players that will play " + players);
-//        System.out.println(gameService.getCurrentPlayer().getName());
-//
-//        gameService.getGameState().getListOfPlayers();
+//    @GetMapping(value = "/cards")
+//    public ResponseEntity<List<Card>> getAllCards(){
+//        return new ResponseEntity<>(cardRepository.findAll(), HttpStatus.OK);
+//    }
+
+
+    @PostMapping(value = "/api/game/initialise")
+    public ResponseEntity<HttpStatus> initialiseGame(@RequestBody ArrayList<Player> players) {
 
         gameService.startGame();
         gameService.getGameState().setListOfPlayers(players);
@@ -67,14 +51,19 @@ public class GameController {
         return new ResponseEntity<>(HttpStatus.OK);
 
     }
-    @GetMapping(value = "/api/gamestate/deck")
-    public ResponseEntity<Player> getDeckFromGameState() {
+    @GetMapping(value = "/api/gamestate/getActivePlayer")
+    //We are using this function to return a player, in order to fetch their deck
+    public ResponseEntity<Player> getActivePlayer() {
         return new ResponseEntity<>(gameService.getGameState().getCurrentPlayer(), HttpStatus.OK);
     }
-    @GetMapping(value = "/api/gamestate/getHand")
-    public ResponseEntity<Player> getHandFromGameState() {
-        return new ResponseEntity<>(gameService.getGameState().getCurrentPlayer(), HttpStatus.OK);
-    }
+
+
+
+
+//    @GetMapping(value = "/api/gamestate/getHand")
+//    public ResponseEntity<Player> getHandFromGameState() {
+//        return new ResponseEntity<>(gameService.getGameState().getCurrentPlayer(), HttpStatus.OK);
+//    }
 
 
 }
