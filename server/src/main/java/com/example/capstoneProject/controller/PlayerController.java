@@ -41,6 +41,7 @@ public class PlayerController {
     public List<Card> createHand(@RequestBody List<Card> hand) {
         System.out.println(hand);
         gameService.chooseHand(hand);
+        System.out.println("this hand is saved: " + gameService.getGameState().getCurrentPlayer().getHand());
         return hand;
     }
 }
