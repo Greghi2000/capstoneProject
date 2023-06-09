@@ -7,17 +7,11 @@ import Game from './components/Game';
 
 function App() {
 
-  const [cards, setCards] = useState([]);
   const [players, setPlayers] = useState([]);
   const [chosenPlayer, setChosenPlayer] = useState(null);
   const [activePlayerId, setActivePlayerId] = useState("");
   const [activePlayerHand, setActivePlayerHand] = useState([]);
 
-  useEffect(() => {
-      fetch('http://localhost:8080/cards')
-      .then(res => res.json())
-      .then(cards => setCards(cards))
-    },[])
     
     //Does this run at the start: what players is it getting?
     useEffect(() => {
@@ -26,16 +20,17 @@ function App() {
       .then(players => setPlayers(players))
     },[])
 
+    //ready to change player when dependency changes
     useEffect(() => {
         fetch(`http://localhost:8080/api/player/${activePlayerId}`)
         .then(res => res.json())
         .then(player => setChosenPlayer(player))
       },[activePlayerId])
 
-console.log("Chosen Player is right now: " + chosenPlayer.name)
+// console.log("Chosen Player is right now: " + chosenPlayer.name)
       
 
-
+    // when chosen player, get the chosen player from back and sets hand in state (to be passed to hand component)
     useEffect(() => {
       console.log("chosenPlayer changed NOW")
       fetch('http://localhost:8080/api/gamestate/getActivePlayer')
@@ -49,7 +44,6 @@ console.log("Chosen Player is right now: " + chosenPlayer.name)
   return (
       <>
         <PlayerNew/>
-        {cards.length}
         {players.length}
         {/* {chosenPlayer.deck && chosenPlayer.deck.map((card) => (
           <div key={card.id}>

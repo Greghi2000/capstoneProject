@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import axios from 'axios';
 
-//this component handles the creation of new players and creates a deck of cards for them
+
 
 const Game = ({setActivePlayerId}) => {
-  const [players, setPlayers] = useState([]);
-  const [activePlayer, setActivePlayer] = useState("");
+  const [players, setPlayers] = useState([]); //list of the two players that are in the game
+  const [activePlayer, setActivePlayer] = useState(""); //player who is currently playing turn/choosing hand
 
   const handleNameChange = (e) => {
     setActivePlayer(e.target.value);
