@@ -1,13 +1,15 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 
+
+//this component currently allows the chosen player to choose their hand from their deck
 const Hand = ({ chosenPlayer }) => {
   const [hand, setHand] = useState([]);
 
   const handleClick = (card, name, power) => {
     console.log(`Clicked on card - Name: ${name} | Power: ${power}`);
+    //!check needed to stop a card being selected twice!
     if (hand.length < 10) {
-      // if card is already in array, do not allow it to be added again
       setHand((prevHand) => [...prevHand, card]);
     }
     console.log(`Current array list: ${hand}`);
@@ -16,6 +18,7 @@ const Hand = ({ chosenPlayer }) => {
   const handleHandSubmit = async (e) => {
     e.preventDefault();
 
+    //saves hand in the backend so now it is both in state in react, and stored in GameState in java
     try {
       const response = await axios.post(
         'http://localhost:8080/api/players/hand',
