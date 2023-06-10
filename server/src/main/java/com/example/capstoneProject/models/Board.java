@@ -29,7 +29,7 @@ public class Board {
 
         player2Cards = new HashMap<>();
         player2Cards.put("Melee", new ArrayList<>());
-        player2Cards.put("Ranged", new ArrayList<>());
+        player2Cards.put("Range", new ArrayList<>());
         player2Cards.put("Siege", new ArrayList<>());
 
         player2scores.put("Melee", 0);

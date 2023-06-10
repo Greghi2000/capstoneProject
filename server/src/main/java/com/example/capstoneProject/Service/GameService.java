@@ -13,6 +13,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -29,9 +30,6 @@ public class GameService {
     GameState gameState;
 
     public GameService(CardRepository cardRepository) {
-//        this.board = null;
-////        this.currentPlayer = currentPlayer;
-//        this.listOfPlayers = listOfPlayers;
         this.cardRepository = cardRepository;
         this.gameState = new GameState();
     }
@@ -66,8 +64,13 @@ public class GameService {
         System.out.println("GAME WAS STARTED");
     }
 
-    public void setActivePlayerForStart() {
+    //sets players a number 1 or 2 to allow board to assign positions, and makes the first player the active player
+    public void setUpPlayers() {
         Player activePlayer = gameState.getListOfPlayers().get(0);
+        Player otherPlayer = gameState.getListOfPlayers().get(1);
+
+        activePlayer.setPlayerNumber(1);
+        otherPlayer.setPlayerNumber(2);
         gameState.setCurrentPlayer(activePlayer);
     }
 
@@ -134,32 +137,97 @@ public class GameService {
         }
         getGameState().setCurrentPlayer(newCurrentPlayer);
     }
+
+
+    public void addCardToBoard(Card chosenCard) {
+        Long player1Id = gameState.getListOfPlayers().get(0).getId();
+        Long player2Id = gameState.getListOfPlayers().get(1).getId();
+
+
+
+        if (chosenCard.getCardType().equals("Unit")) {
+            if (getGameState().getCurrentPlayer().getId() == player1Id) {
+                if (chosenCard.getRowType().equals("Melee")) {
+                    getGameState().getBoard().getPlayer1Cards().get("Melee").add(chosenCard);
+                } else if (chosenCard.getRowType().equals("Range")) {
+                    getGameState().getBoard().getPlayer1Cards().get("Range").add(chosenCard);
+                } else if (chosenCard.getRowType().equals("Siege")) {
+                    getGameState().getBoard().getPlayer1Cards().get("Siege").add(chosenCard);
+                }
+
+            } else if (getGameState().getCurrentPlayer().getId() == player2Id) {
+                if (chosenCard.getRowType().equals("Melee")) {
+                    getGameState().getBoard().getPlayer2Cards().get("Melee").add(chosenCard);
+                } else if (chosenCard.getRowType().equals("Range")) {
+                    getGameState().getBoard().getPlayer2Cards().get("Range").add(chosenCard);
+                } else if (chosenCard.getRowType().equals("Siege")) {
+                    getGameState().getBoard().getPlayer2Cards().get("Siege").add(chosenCard);
+                }
+            }
+        }
+    }
+
+    //updates all the scores in Board
+    public void tallyScores() {
+        // Calculate scores for player1 melee
+        ArrayList<Card> player1MeleeCards = getGameState().getBoard().getPlayer1Cards().get("Melee");
+        int totalPlayer1MeleeScore = calculateRowTotal(player1MeleeCards);
+        HashMap<String, Integer> player1scores = getGameState().getBoard().getPlayer1scores();
+        player1scores.put("Melee", totalPlayer1MeleeScore);
+
+        // Calculate scores for player1 range
+        ArrayList<Card> player1RangeCards = getGameState().getBoard().getPlayer1Cards().get("Range");
+        int totalPlayer1RangeScore = calculateRowTotal(player1RangeCards);
+        player1scores.put("Range", totalPlayer1RangeScore);
+
+        // Calculate scores for player1 siege
+        ArrayList<Card> player1SiegeCards = getGameState().getBoard().getPlayer1Cards().get("Siege");
+        int totalPlayer1SiegeScore = calculateRowTotal(player1SiegeCards);
+        player1scores.put("Siege", totalPlayer1SiegeScore);
+
+        // Update total score for player1
+        int totalPlayer1Score = player1scores.values().stream().mapToInt(Integer::intValue).sum();
+        player1scores.put("Total", totalPlayer1Score);
+
+        // Calculate scores for player2 melee
+        ArrayList<Card> player2MeleeCards = getGameState().getBoard().getPlayer2Cards().get("Melee");
+        int totalPlayer2MeleeScore = calculateRowTotal(player2MeleeCards);
+        HashMap<String, Integer> player2scores = getGameState().getBoard().getPlayer2scores();
+        player2scores.put("Melee", totalPlayer2MeleeScore);
+
+        // Calculate scores for player2 range
+        ArrayList<Card> player2RangeCards = getGameState().getBoard().getPlayer2Cards().get("Range");
+        int totalPlayer2RangeScore = calculateRowTotal(player2RangeCards);
+        player2scores.put("Range", totalPlayer2RangeScore);
+
+        // Calculate scores for player2 siege
+        ArrayList<Card> player2SiegeCards = getGameState().getBoard().getPlayer2Cards().get("Siege");
+        int totalPlayer2SiegeScore = calculateRowTotal(player2SiegeCards);
+        player2scores.put("Siege", totalPlayer2SiegeScore);
+
+        // Update total score for player2
+        int totalPlayer2Score = player2scores.values().stream().mapToInt(Integer::intValue).sum();
+        player2scores.put("Total", totalPlayer2Score);
+    }
+
+
+    public int calculateRowTotal(ArrayList<Card> row){
+        int total = 0;
+        for (Card card : row){
+            total += card.getPower();
+        }
+        return total;
+    }
+
+
+
+
+
 }
 
 
 
-//
-//    public void addCardToBoard(Card chosenCard) {
-//        if (chosenCard.getCardType().equals("Unit")) {
-//            if (getGameState().getCurrentPlayer().getPlayerNumber() == 1) {
-//                if (chosenCard.getRowType().equals("Melee")) {
-//                    getGameState().getBoard().getPlayer1Cards().get("Melee").add(chosenCard);
-//                } else if (chosenCard.getRowType().equals("Range")) {
-//                    getGameState().getBoard().getPlayer1Cards().get("Range").add(chosenCard);
-//                } else if (chosenCard.getRowType().equals("Siege")) {
-//                    getGameState().getBoard().getPlayer1Cards().get("Siege").add(chosenCard);
-//                }
-//            } else if (getGameState().getCurrentPlayer().getPlayerNumber() == 2) {
-//                if (chosenCard.getRowType().equals("Melee")) {
-//                    getGameState().getBoard().getPlayer2Cards().get("Melee").add(chosenCard);
-//                } else if (chosenCard.getRowType().equals("Range")) {
-//                    getGameState().getBoard().getPlayer2Cards().get("Range").add(chosenCard);
-//                } else if (chosenCard.getRowType().equals("Siege")) {
-//                    getGameState().getBoard().getPlayer2Cards().get("Siege").add(chosenCard);
-//                }
-//            }
-//        }
-//    }
+
 
 ////            //check currentPlayer.getPlayerNumber
                 //if playerNumber == 1 check rowType and add

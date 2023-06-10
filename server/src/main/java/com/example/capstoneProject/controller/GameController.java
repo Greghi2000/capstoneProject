@@ -36,7 +36,7 @@ public class GameController {
 
         gameService.startGame();
         gameService.getGameState().setListOfPlayers(players);
-        gameService.setActivePlayerForStart(); //need to make sure to set active player in gameState in this method
+        gameService.setUpPlayers();
 
         System.out.println("This is the list of players" + gameService.getGameState().getListOfPlayers());
         Player player1 = gameService.getGameState().getListOfPlayers().get(0);
@@ -67,19 +67,19 @@ public class GameController {
         return new ResponseEntity<>(gameService.getGameState().getCurrentPlayer(), HttpStatus.OK);
     }
 
-//    @PostMapping(value = "api/gamestate/playCard")
-//    //use this to post a card to play to the board
-//    public ResponseEntity<HttpStatus> playNewCard (@RequestBody Card chosenCard){
-//        gameService.playCard(chosenCard);
-//        return new ResponseEntity<>(HttpStatus.OK);
-//    }
+    @PostMapping(value = "api/gamestate/playCard")
+    //use this to post a card to play to the board
+    public ResponseEntity<HttpStatus> playNewCard (@RequestBody Card chosenCard){
+        gameService.addCardToBoard(chosenCard);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 
-//    @GetMapping(value = "api/gamestate/getBoard")
-//    //use this to get the updated board
-//    public ResponseEntity<Board> getBoard(){
-////        gameService.getBoardState(); //method not ready
-//        return new ResponseEntity<>(gameService.getGameState().getBoard(), HttpStatus.OK);
-//    }
+    @GetMapping(value = "api/gamestate/getBoard")
+    //use this to get the updated board
+    public ResponseEntity<Board> getBoard(){
+        gameService.tallyScores();
+        return new ResponseEntity<>(gameService.getGameState().getBoard(), HttpStatus.OK);
+    }
 
 
 

@@ -99,4 +99,9 @@ class CapstoneProjectApplicationTests {
 		assertEquals("One", newService.getGameState().getCurrentPlayer().getName());
 
 	}
+
+	@Test
+	public void canAddCardToBoard(){
+
+	}
 }
