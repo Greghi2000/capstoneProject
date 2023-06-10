@@ -49,6 +49,7 @@ public class GameService {
     public void setGameState(GameState gameState) {
         this.gameState = gameState;
     }
+
     public CardRepository getCardRepository() {
         return cardRepository;
     }
@@ -59,34 +60,34 @@ public class GameService {
 
     //GAME SERVICES
 
-    public void startGame(){
+    public void startGame() {
         GameState gameState = new GameState();
         this.setGameState(gameState);
         System.out.println("GAME WAS STARTED");
     }
-    public void setActivePlayerForStart(){
+
+    public void setActivePlayerForStart() {
         Player activePlayer = gameState.getListOfPlayers().get(0);
         gameState.setCurrentPlayer(activePlayer);
     }
 
     public ArrayList<Card> starterDeck(Player player) {
-    ArrayList<Card> deck = new ArrayList<>();
-    int i = 1;
-    while (i <= 30) {
-        double randomNum = Math.random();
-        long finalRandomNum = Math.round((randomNum * 45) + 1);
-        boolean existsInDeck = deck.stream().anyMatch(card -> card.getId() == finalRandomNum);
-        if (existsInDeck) {
-            continue;
+        ArrayList<Card> deck = new ArrayList<>();
+        int i = 1;
+        while (i <= 30) {
+            double randomNum = Math.random();
+            long finalRandomNum = Math.round((randomNum * 45) + 1);
+            boolean existsInDeck = deck.stream().anyMatch(card -> card.getId() == finalRandomNum);
+            if (existsInDeck) {
+                continue;
+            }
+            Card cardFromDb = cardRepository.getReferenceById(finalRandomNum);
+            cardFromDb.getPlayers().add(player);
+            cardRepository.save(cardFromDb);
+            deck.add(cardFromDb);
+            i++;
         }
-        Card cardFromDb = cardRepository.getReferenceById(finalRandomNum);
-        cardFromDb.getPlayers().add(player);
-        cardRepository.save(cardFromDb);
-        deck.add(cardFromDb);
-        i++;
-    }
-    player.setDeck(deck);
-
+        player.setDeck(deck);
 
 
 //    ArrayList<Player> listOfGSPlayers = getGameState().getListOfPlayers();
@@ -102,14 +103,15 @@ public class GameService {
 //            thisPlayer = player;
 //        }
 //    }
-    return deck;
-}
+        return deck;
+    }
 
-    public ArrayList<Card> fetchPlayerDeck(Player player){
+    public ArrayList<Card> fetchPlayerDeck(Player player) {
         player.getDeck();
         return null;
     }
-    public ArrayList<Card> playerDeckCheck(Player player){
+
+    public ArrayList<Card> playerDeckCheck(Player player) {
         // check if player has a deck/exists already
         // if he does fetch deck from DB
         // if not generate new deck by calling generateNewDeck()
@@ -132,13 +134,37 @@ public class GameService {
         }
         getGameState().setCurrentPlayer(newCurrentPlayer);
     }
+}
 
-//    public void playCard(Card chosenCard){
-//        //call board method to add card to board
-//            //check card type/row type
-//            //check currentPlayer
-//            //Add to correct list
+
+
+//
+//    public void addCardToBoard(Card chosenCard) {
+//        if (chosenCard.getCardType().equals("Unit")) {
+//            if (getGameState().getCurrentPlayer().getPlayerNumber() == 1) {
+//                if (chosenCard.getRowType().equals("Melee")) {
+//                    getGameState().getBoard().getPlayer1Cards().get("Melee").add(chosenCard);
+//                } else if (chosenCard.getRowType().equals("Range")) {
+//                    getGameState().getBoard().getPlayer1Cards().get("Range").add(chosenCard);
+//                } else if (chosenCard.getRowType().equals("Siege")) {
+//                    getGameState().getBoard().getPlayer1Cards().get("Siege").add(chosenCard);
+//                }
+//            } else if (getGameState().getCurrentPlayer().getPlayerNumber() == 2) {
+//                if (chosenCard.getRowType().equals("Melee")) {
+//                    getGameState().getBoard().getPlayer2Cards().get("Melee").add(chosenCard);
+//                } else if (chosenCard.getRowType().equals("Range")) {
+//                    getGameState().getBoard().getPlayer2Cards().get("Range").add(chosenCard);
+//                } else if (chosenCard.getRowType().equals("Siege")) {
+//                    getGameState().getBoard().getPlayer2Cards().get("Siege").add(chosenCard);
+//                }
+//            }
+//        }
 //    }
+
+////            //check currentPlayer.getPlayerNumber
+                //if playerNumber == 1 check rowType and add
+                //else if playerNumber == repeat above
+
 
 //    public Board getBoardState(){
 //        //call service to tallyBoard to update board values
@@ -234,4 +260,4 @@ public class GameService {
 //        this.listOfPlayers = listOfPlayers;
 //    }
 
-}
+
