@@ -39,25 +39,8 @@ public class GameService {
     // gamecontroller{ (POST) -> /api/game/start -> gameservice.startNewGame() -> instantiate a new gamestate object}
     // gamecontroller{ (GET) -> /api/game/getCurrent/id -> gameservice.getCurrentGame() -> return the gamestate ID}
 
-    public void startGame(){
-        GameState gameState = new GameState();
-        this.setGameState(gameState);
-        System.out.println("GAME WAS STARTED");
-    }
-    public void setActivePlayerForStart(){
-        Player activePlayer = gameState.getListOfPlayers().get(0);
-        gameState.setCurrentPlayer(activePlayer);
 
-    }
-    public void togglePlayer(){
-        Player retreivedActivePlayer = this.getCurrentPlayer();
-        if (retreivedActivePlayer == this.listOfPlayers.get(0)) {
-            setCurrentPlayer(this.listOfPlayers.get(1));
-        } else if (retreivedActivePlayer == this.listOfPlayers.get(1)) {
-            setCurrentPlayer(this.listOfPlayers.get(0));
-        }
-    }
-
+    //GETTER AND SETTERS
     public GameState getGameState() {
         return gameState;
     }
@@ -98,12 +81,20 @@ public class GameService {
         this.cardRepository = cardRepository;
     }
 
-    //    public ResponseEntity<List<Card>> getData(){
-//        CardController controller = new CardController();
-//        System.out.println(controller.getAllCards());
-//        return controller.getAllCards();
-//    }
-public ArrayList<Card> starterDeck(Player player) {
+    //Game Services
+
+    public void startGame(){
+        GameState gameState = new GameState();
+        this.setGameState(gameState);
+        System.out.println("GAME WAS STARTED");
+    }
+    public void setActivePlayerForStart(){
+        Player activePlayer = gameState.getListOfPlayers().get(0);
+        gameState.setCurrentPlayer(activePlayer);
+
+    }
+
+    public ArrayList<Card> starterDeck(Player player) {
     ArrayList<Card> deck = new ArrayList<>();
     int i = 1;
     while (i <= 30) {
@@ -153,6 +144,19 @@ public ArrayList<Card> starterDeck(Player player) {
     public void chooseHand(List<Card> hand) {
         getGameState().getCurrentPlayer().setHand(hand);
         System.out.println("This is the hand that we got from reat!!!" + getGameState().getCurrentPlayer().getHand());
+    }
+
+    public void togglePlayer() {
+        Player retrievedActivePlayer = getGameState().getCurrentPlayer();
+        Player newCurrentPlayer = null;
+
+        if (retrievedActivePlayer == getGameState().getListOfPlayers().get(0)) {
+            newCurrentPlayer = getGameState().getListOfPlayers().get(1);
+        } else if (retrievedActivePlayer == getGameState().getListOfPlayers().get(1)) {
+            newCurrentPlayer = getListOfPlayers().get(0);
+        }
+
+        getGameState().setCurrentPlayer(newCurrentPlayer);
     }
 
 //    public void startSetup() {
@@ -207,7 +211,6 @@ public ArrayList<Card> starterDeck(Player player) {
 //    }
 //
 //    //playTurn()
-//        //prompt player to make a move(choose a card to play)
 //        //pass chosen card to board
 //        //board then puts card in correct row for display and updates the row tally
 //

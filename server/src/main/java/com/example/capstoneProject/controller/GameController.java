@@ -57,6 +57,12 @@ public class GameController {
         return new ResponseEntity<>(gameService.getGameState().getCurrentPlayer(), HttpStatus.OK);
     }
 
+    @GetMapping(value = "api/gamestate/togglePlayer")
+    public ResponseEntity<Player> toggleActivePlayer(){
+        gameService.togglePlayer();
+        return new ResponseEntity<>(gameService.getGameState().getCurrentPlayer(), HttpStatus.OK);
+    }
+
 
 
 
