@@ -93,8 +93,8 @@ class CapstoneProjectApplicationTests {
 		assertEquals("Two", newService.getGameState().getCurrentPlayer().getName());
 
 		newService.togglePlayer();
-		System.out.println("Selected player now is back to: " + newService.getGameState().getCurrentPlayer().getName());
 
+		System.out.println("Selected player now is back to: " + newService.getGameState().getCurrentPlayer().getName());
 
 		assertEquals("One", newService.getGameState().getCurrentPlayer().getName());
 

@@ -84,4 +84,19 @@ public class Board {
     public void setDeployedCardsPlayer2(ArrayList<Card> deployedCardsPlayer2) {
         this.deployedCardsPlayer2 = deployedCardsPlayer2;
     }
+
+    public void placeCard(Card chosenCard, Player currentPlayer){ //or PlayerIndex
+        //check card for cardType
+        //check card for rowType
+        //check player or playerIndex
+        //then place in correct list player1 or player2
+    }
+
+    public void tallyScores(){
+        //loop through player 1 row types and tally them add them row totals
+        //repeat for player 2
+        //calculate and set each player total
+    }
+
+
 }
