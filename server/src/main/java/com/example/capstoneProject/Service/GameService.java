@@ -65,12 +65,8 @@ public class GameService {
     }
 
     //sets players a number 1 or 2 to allow board to assign positions, and makes the first player the active player
-    public void setUpPlayers() {
+    public void setActivePlayerAtStart() {
         Player activePlayer = gameState.getListOfPlayers().get(0);
-        Player otherPlayer = gameState.getListOfPlayers().get(1);
-
-        activePlayer.setPlayerNumber(1);
-        otherPlayer.setPlayerNumber(2);
         gameState.setCurrentPlayer(activePlayer);
     }
 

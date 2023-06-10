@@ -18,8 +18,6 @@ public class Player {
     @Column(name = "name")
     private String name;
 
-    @Column(name = "player_number")
-    private int playerNumber;
 
     @JsonIgnoreProperties({"players", "hibernateLazyInitializer"})
     @ManyToMany
@@ -55,7 +53,6 @@ public class Player {
         this.name = name;
         this.deck = new ArrayList<>();
         this.hand = new ArrayList<>();
-        this.playerNumber = 0;
         lives = 2;
         hasPassed = false;
     }
@@ -77,14 +74,6 @@ public class Player {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public int getPlayerNumber() {
-        return playerNumber;
-    }
-
-    public void setPlayerNumber(int playerNumber) {
-        this.playerNumber = playerNumber;
     }
 
     public List<Card> getDeck() {
