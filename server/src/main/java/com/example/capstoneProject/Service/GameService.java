@@ -20,9 +20,6 @@ import java.util.stream.Collectors;
 
 @Service
 public class GameService {
-//    Board board;
-//    private Player currentPlayer;
-//    private ArrayList<Player> listOfPlayers;
 
     CardRepository cardRepository;
 
@@ -139,8 +136,6 @@ public class GameService {
         Long player1Id = gameState.getListOfPlayers().get(0).getId();
         Long player2Id = gameState.getListOfPlayers().get(1).getId();
 
-
-
         if (chosenCard.getCardType().equals("Unit")) {
             if (getGameState().getCurrentPlayer().getId() == player1Id) {
                 if (chosenCard.getRowType().equals("Melee")) {
@@ -215,25 +210,26 @@ public class GameService {
         return total;
     }
 
+    private boolean isRoundOver() {
+        Player player1 = gameState.getListOfPlayers().get(0);
+        Player player2 = gameState.getListOfPlayers().get(1);
 
+        boolean isPlayer1HandEmpty = player1.getHand().isEmpty();
+        boolean isPlayer2HandEmpty = player2.getHand().isEmpty();
+        boolean isPlayer1Passed = player1.isHasPassed();
+        boolean isPlayer2Passed = player2.isHasPassed();
 
-
+        return (isPlayer1HandEmpty && isPlayer2HandEmpty) ||
+                (isPlayer1Passed && isPlayer2Passed) ||
+                (isPlayer1HandEmpty && isPlayer2Passed) ||
+                (isPlayer1Passed && isPlayer2HandEmpty);
+    }
 
 }
 
 
 
 
-
-////            //check currentPlayer.getPlayerNumber
-                //if playerNumber == 1 check rowType and add
-                //else if playerNumber == repeat above
-
-
-//    public Board getBoardState(){
-//        //call service to tallyBoard to update board values
-//        //return the current board in gameState
-//    }
 
 
 
