@@ -27,6 +27,7 @@ public class PlayerController {
     public Player createPlayer(@RequestBody Player player) {
         System.out.println(player.getName());
         playerRepository.save(player);
+        gameService.getGameState().addPlayer(player);
         return player;
     }
     @GetMapping(value = "/api/players")

@@ -11,16 +11,16 @@ public class GameState {
     private ArrayList<Player> listOfPlayers;
     private Board board;
 
+    public GameState() {
+        this.currentPlayer = new Player();
+        this.listOfPlayers = new ArrayList<>();
+        this.board = new Board();
+    }
+
     public GameState(Player currentPlayer, ArrayList<Player> listOfPlayers, Board board) {
         this.currentPlayer = currentPlayer;
         this.listOfPlayers = listOfPlayers;
         this.board = board;
-    }
-    // GameState stores the values. Is supposed to reflect the game state from react
-    // GameController queries specific values from GameState and sends those to react
-    // GameService modifies GameState thru GameController
-
-    public GameState() {
     }
 
     public Player getCurrentPlayer() {
@@ -48,5 +48,9 @@ public class GameState {
 
     public void setBoard(Board board) {
         this.board = board;
+    }
+
+    public void addPlayer(Player player) {
+        listOfPlayers.add(player);
     }
 }

@@ -202,9 +202,19 @@ public class GameService {
     }
 
 
-    public int calculateRowTotal(ArrayList<Card> row){
+    public int calculateRowTotal(ArrayList<Card> row) {
+        if (row == null) {
+            // Handle the null state (e.g., throw an exception or log an error)
+            return 0;
+        }
+
         int total = 0;
-        for (Card card : row){
+        for (Card card : row) {
+            if (card == null) {
+                // Handle the null state (e.g., throw an exception or log an error)
+                continue; // Skip this card and continue with the next one
+            }
+
             total += card.getPower();
         }
         return total;

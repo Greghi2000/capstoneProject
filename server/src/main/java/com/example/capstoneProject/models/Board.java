@@ -17,11 +17,13 @@ public class Board {
 
 
     public Board() {
+
         player1Cards = new HashMap<>();
         player1Cards.put("Melee", new ArrayList<>());
         player1Cards.put("Range", new ArrayList<>());
         player1Cards.put("Siege", new ArrayList<>());
 
+        player1scores = new HashMap<>();
         player1scores.put("Melee", 0);
         player1scores.put("Range", 0);
         player1scores.put("Siege", 0);
@@ -32,6 +34,7 @@ public class Board {
         player2Cards.put("Range", new ArrayList<>());
         player2Cards.put("Siege", new ArrayList<>());
 
+        player2scores = new HashMap<>();
         player2scores.put("Melee", 0);
         player2scores.put("Range", 0);
         player2scores.put("Siege", 0);

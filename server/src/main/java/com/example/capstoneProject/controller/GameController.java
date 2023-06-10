@@ -36,7 +36,7 @@ public class GameController {
 
         gameService.startGame();
         gameService.getGameState().setListOfPlayers(players);
-        gameService.setUpPlayers();
+        gameService.setActivePlayerAtStart();
 
         System.out.println("This is the list of players" + gameService.getGameState().getListOfPlayers());
         Player player1 = gameService.getGameState().getListOfPlayers().get(0);

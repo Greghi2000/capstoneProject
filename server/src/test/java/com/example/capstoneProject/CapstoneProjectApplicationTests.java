@@ -102,6 +102,44 @@ class CapstoneProjectApplicationTests {
 
 	@Test
 	public void canAddCardToBoard(){
+		Player player1 = new Player("One");
+		Player player2 = new Player("Two");
+		playerRepository.save(player1);
+		playerRepository.save(player2);
+		GameService newService = new GameService(cardRepository);
+		newService.startGame();
+		newService.getGameState().addPlayer(player1);
+		newService.getGameState().addPlayer(player2);
+		newService.setActivePlayerAtStart();
 
+
+		Card testCard = new Card(
+						"Ciri",
+						"Witcher",
+						"Whenever you lose a round, return this unit from the battlefield to your hand.",
+						"Whenever you lose a round, return this unit from the battlefield to your hand.",
+						"",
+						"I go wherever I please, whenever I please.",
+						1007,
+						112101,
+						1207,
+						"BaseSet",
+						"Unit",
+						0,
+						"Gold",
+						6,
+						0,
+						"Anna Podedworna",
+						"Legendary",
+						"Neutral",
+						"",
+						8,
+						"",
+						"Range"
+				);
+
+		newService.addCardToBoard(testCard);
+
+		assertEquals(testCard.getName(), newService.getGameState().getBoard().getPlayer1Cards().get("Range").get(0).getName());
 	}
 }
