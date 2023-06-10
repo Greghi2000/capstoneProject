@@ -133,12 +133,12 @@ public class GameService {
         getGameState().setCurrentPlayer(newCurrentPlayer);
     }
 
-    public void playCard(Card chosenCard){
-        //call board method to add card to board
-            //check card type/row type
-            //check currentPlayer
-            //Add to correct list
-    }
+//    public void playCard(Card chosenCard){
+//        //call board method to add card to board
+//            //check card type/row type
+//            //check currentPlayer
+//            //Add to correct list
+//    }
 
 //    public Board getBoardState(){
 //        //call service to tallyBoard to update board values
