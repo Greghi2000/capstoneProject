@@ -19,9 +19,9 @@ import java.util.stream.Collectors;
 
 @Service
 public class GameService {
-    Board board;
-    private Player currentPlayer;
-    private ArrayList<Player> listOfPlayers;
+//    Board board;
+//    private Player currentPlayer;
+//    private ArrayList<Player> listOfPlayers;
 
     CardRepository cardRepository;
 
@@ -29,15 +29,35 @@ public class GameService {
     GameState gameState;
 
     public GameService(CardRepository cardRepository) {
-        this.board = null;
-//        this.currentPlayer = currentPlayer;
-        this.listOfPlayers = listOfPlayers;
+//        this.board = null;
+////        this.currentPlayer = currentPlayer;
+//        this.listOfPlayers = listOfPlayers;
         this.cardRepository = cardRepository;
         this.gameState = new GameState();
     }
 
     // gamecontroller{ (POST) -> /api/game/start -> gameservice.startNewGame() -> instantiate a new gamestate object}
     // gamecontroller{ (GET) -> /api/game/getCurrent/id -> gameservice.getCurrentGame() -> return the gamestate ID}
+
+
+    //GETTER AND SETTERS
+
+    public GameState getGameState() {
+        return gameState;
+    }
+
+    public void setGameState(GameState gameState) {
+        this.gameState = gameState;
+    }
+    public CardRepository getCardRepository() {
+        return cardRepository;
+    }
+
+    public void setCardRepository(CardRepository cardRepository) {
+        this.cardRepository = cardRepository;
+    }
+
+    //GAME SERVICES
 
     public void startGame(){
         GameState gameState = new GameState();
@@ -47,63 +67,9 @@ public class GameService {
     public void setActivePlayerForStart(){
         Player activePlayer = gameState.getListOfPlayers().get(0);
         gameState.setCurrentPlayer(activePlayer);
-
-    }
-    public void togglePlayer(){
-        Player retreivedActivePlayer = this.getCurrentPlayer();
-        if (retreivedActivePlayer == this.listOfPlayers.get(0)) {
-            setCurrentPlayer(this.listOfPlayers.get(1));
-        } else if (retreivedActivePlayer == this.listOfPlayers.get(1)) {
-            setCurrentPlayer(this.listOfPlayers.get(0));
-        }
     }
 
-    public GameState getGameState() {
-        return gameState;
-    }
-
-    public void setGameState(GameState gameState) {
-        this.gameState = gameState;
-    }
-
-    public Board getBoard() {
-        return board;
-    }
-
-    public void setBoard(Board board) {
-        this.board = board;
-    }
-
-    public Player getCurrentPlayer() {
-        return currentPlayer;
-    }
-
-    public void setCurrentPlayer(Player currentPlayer) {
-        this.currentPlayer = currentPlayer;
-    }
-
-    public ArrayList<Player> getListOfPlayers() {
-        return listOfPlayers;
-    }
-
-    public void setListOfPlayers(ArrayList<Player> listOfPlayers) {
-        this.listOfPlayers = listOfPlayers;
-    }
-
-    public CardRepository getCardRepository() {
-        return cardRepository;
-    }
-
-    public void setCardRepository(CardRepository cardRepository) {
-        this.cardRepository = cardRepository;
-    }
-
-    //    public ResponseEntity<List<Card>> getData(){
-//        CardController controller = new CardController();
-//        System.out.println(controller.getAllCards());
-//        return controller.getAllCards();
-//    }
-public ArrayList<Card> starterDeck(Player player) {
+    public ArrayList<Card> starterDeck(Player player) {
     ArrayList<Card> deck = new ArrayList<>();
     int i = 1;
     while (i <= 30) {
@@ -154,6 +120,35 @@ public ArrayList<Card> starterDeck(Player player) {
         getGameState().getCurrentPlayer().setHand(hand);
         System.out.println("This is the hand that we got from reat!!!" + getGameState().getCurrentPlayer().getHand());
     }
+
+    public void togglePlayer() {
+        Player retrievedActivePlayer = getGameState().getCurrentPlayer();
+        Player newCurrentPlayer = null;
+
+        if (retrievedActivePlayer == getGameState().getListOfPlayers().get(0)) {
+            newCurrentPlayer = getGameState().getListOfPlayers().get(1);
+        } else if (retrievedActivePlayer == getGameState().getListOfPlayers().get(1)) {
+            newCurrentPlayer = getGameState().getListOfPlayers().get(0);
+        }
+        getGameState().setCurrentPlayer(newCurrentPlayer);
+    }
+
+//    public void playCard(Card chosenCard){
+//        //call board method to add card to board
+//            //check card type/row type
+//            //check currentPlayer
+//            //Add to correct list
+//    }
+
+//    public Board getBoardState(){
+//        //call service to tallyBoard to update board values
+//        //return the current board in gameState
+//    }
+
+
+
+
+
 
 //    public void startSetup() {
 //        //wait for react to get player names
@@ -206,11 +201,6 @@ public ArrayList<Card> starterDeck(Player player) {
 //        endGame();
 //    }
 //
-//    //playTurn()
-//        //prompt player to make a move(choose a card to play)
-//        //pass chosen card to board
-//        //board then puts card in correct row for display and updates the row tally
-//
 //    private boolean isRoundOver() {
 //
 //        return (player1.getHand().isEmpty() && player2.getHand().isEmpty()) ||
@@ -218,4 +208,30 @@ public ArrayList<Card> starterDeck(Player player) {
 //                (player1.getHand().isEmpty() && player2.isHasPassed()) ||
 //                (player1.isHasPassed()  && player2.getHand().isEmpty());
 //    }
+
+
+//    public Board getBoard() {
+//        return board;
+//    }
+//
+//    public void setBoard(Board board) {
+//        this.board = board;
+//    }
+//
+//    public Player getCurrentPlayer() {
+//        return currentPlayer;
+//    }
+//
+//    public void setCurrentPlayer(Player currentPlayer) {
+//        this.currentPlayer = currentPlayer;
+//    }
+//
+//    public ArrayList<Player> getListOfPlayers() {
+//        return listOfPlayers;
+//    }
+//
+//    public void setListOfPlayers(ArrayList<Player> listOfPlayers) {
+//        this.listOfPlayers = listOfPlayers;
+//    }
+
 }
