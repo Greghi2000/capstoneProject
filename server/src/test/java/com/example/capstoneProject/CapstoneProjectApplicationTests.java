@@ -88,14 +88,15 @@ class CapstoneProjectApplicationTests {
 		System.out.println("Selected player was: " + newService.getGameState().getCurrentPlayer().getName());
 
 		newService.togglePlayer();
-		System.out.println("playersList: " + newService.getGameState().getListOfPlayers());
 
 		System.out.println("Selected player now is: " + newService.getGameState().getCurrentPlayer().getName());
-//
-//		newService.togglePlayer();
-//
-//
-//		assertEquals("Two", newService.getGameState().getCurrentPlayer().getName());
-		
+		assertEquals("Two", newService.getGameState().getCurrentPlayer().getName());
+
+		newService.togglePlayer();
+		System.out.println("Selected player now is back to: " + newService.getGameState().getCurrentPlayer().getName());
+
+
+		assertEquals("One", newService.getGameState().getCurrentPlayer().getName());
+
 	}
 }

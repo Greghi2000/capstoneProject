@@ -19,9 +19,9 @@ import java.util.stream.Collectors;
 
 @Service
 public class GameService {
-    Board board;
-    private Player currentPlayer;
-    private ArrayList<Player> listOfPlayers;
+//    Board board;
+//    private Player currentPlayer;
+//    private ArrayList<Player> listOfPlayers;
 
     CardRepository cardRepository;
 
@@ -29,9 +29,9 @@ public class GameService {
     GameState gameState;
 
     public GameService(CardRepository cardRepository) {
-        this.board = null;
-//        this.currentPlayer = currentPlayer;
-        this.listOfPlayers = listOfPlayers;
+//        this.board = null;
+////        this.currentPlayer = currentPlayer;
+//        this.listOfPlayers = listOfPlayers;
         this.cardRepository = cardRepository;
         this.gameState = new GameState();
     }
@@ -49,29 +49,29 @@ public class GameService {
         this.gameState = gameState;
     }
 
-    public Board getBoard() {
-        return board;
-    }
-
-    public void setBoard(Board board) {
-        this.board = board;
-    }
-
-    public Player getCurrentPlayer() {
-        return currentPlayer;
-    }
-
-    public void setCurrentPlayer(Player currentPlayer) {
-        this.currentPlayer = currentPlayer;
-    }
-
-    public ArrayList<Player> getListOfPlayers() {
-        return listOfPlayers;
-    }
-
-    public void setListOfPlayers(ArrayList<Player> listOfPlayers) {
-        this.listOfPlayers = listOfPlayers;
-    }
+//    public Board getBoard() {
+//        return board;
+//    }
+//
+//    public void setBoard(Board board) {
+//        this.board = board;
+//    }
+//
+//    public Player getCurrentPlayer() {
+//        return currentPlayer;
+//    }
+//
+//    public void setCurrentPlayer(Player currentPlayer) {
+//        this.currentPlayer = currentPlayer;
+//    }
+//
+//    public ArrayList<Player> getListOfPlayers() {
+//        return listOfPlayers;
+//    }
+//
+//    public void setListOfPlayers(ArrayList<Player> listOfPlayers) {
+//        this.listOfPlayers = listOfPlayers;
+//    }
 
     public CardRepository getCardRepository() {
         return cardRepository;
@@ -153,7 +153,7 @@ public class GameService {
         if (retrievedActivePlayer == getGameState().getListOfPlayers().get(0)) {
             newCurrentPlayer = getGameState().getListOfPlayers().get(1);
         } else if (retrievedActivePlayer == getGameState().getListOfPlayers().get(1)) {
-            newCurrentPlayer = getListOfPlayers().get(0);
+            newCurrentPlayer = getGameState().getListOfPlayers().get(0);
         }
 
         getGameState().setCurrentPlayer(newCurrentPlayer);
