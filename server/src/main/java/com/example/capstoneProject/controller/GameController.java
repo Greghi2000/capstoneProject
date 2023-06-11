@@ -25,6 +25,7 @@ public class GameController {
     CardRepository cardRepository;
     @Autowired
     GameService gameService;
+
 //    @GetMapping(value = "/cards")
 //    public ResponseEntity<List<Card>> getAllCards(){
 //        return new ResponseEntity<>(cardRepository.findAll(), HttpStatus.OK);
@@ -53,38 +54,47 @@ public class GameController {
 
     }
 
-
-    @GetMapping(value = "/api/gamestate/getActivePlayer")
     //We are using this function to return a player, in order to fetch their deck
+    @GetMapping(value = "/api/gamestate/getActivePlayer")
     public ResponseEntity<Player> getActivePlayer() {
         return new ResponseEntity<>(gameService.getGameState().getCurrentPlayer(), HttpStatus.OK);
     }
 
+    //switch player at the backend and return active player for front
+    //also checks if the new player has passed and if so skips their turn by switching player again
     @GetMapping(value = "api/gamestate/togglePlayer")
-    // use this to switch player at the backend and get active player for front
     public ResponseEntity<Player> toggleActivePlayer(){
         gameService.togglePlayer();
+        //checks if current player has passed round
+        if (gameService.hasPlayerPassed()){
+            gameService.togglePlayer();
+        }
         return new ResponseEntity<>(gameService.getGameState().getCurrentPlayer(), HttpStatus.OK);
     }
 
+    //post a card to play to the board
     @PostMapping(value = "api/gamestate/playCard")
-    //use this to post a card to play to the board
     public ResponseEntity<HttpStatus> playNewCard (@RequestBody Card chosenCard){
+        //adds to board, removes from hand
         gameService.addCardToBoard(chosenCard);
         System.out.println("Card posted: " + chosenCard);
-        //still need to remove the card from the playerHand
 
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    //get the updated board
     @GetMapping(value = "api/gamestate/getBoard")
-    //use this to get the updated board
     public ResponseEntity<Board> getBoard(){
         gameService.tallyScores();
         return new ResponseEntity<>(gameService.getGameState().getBoard(), HttpStatus.OK);
     }
 
-    //
+    //passRound
+    @GetMapping(value = "api/gamestate/passRound")
+    public ResponseEntity<HttpStatus> passRound(){
+        gameService.passRound();
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 
 
 

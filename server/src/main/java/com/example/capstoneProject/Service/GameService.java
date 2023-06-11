@@ -155,6 +155,7 @@ public class GameService {
                     getGameState().getBoard().getPlayer2Cards().get("Siege").add(chosenCard);
                 }
             }
+            gameState.getCurrentPlayer().getHand().remove(chosenCard);
         }
     }
 
@@ -204,14 +205,12 @@ public class GameService {
 
     public int calculateRowTotal(ArrayList<Card> row) {
         if (row == null) {
-            // Handle the null state (e.g., throw an exception or log an error)
             return 0;
         }
 
         int total = 0;
         for (Card card : row) {
             if (card == null) {
-                // Handle the null state (e.g., throw an exception or log an error)
                 continue; // Skip this card and continue with the next one
             }
 
@@ -220,7 +219,19 @@ public class GameService {
         return total;
     }
 
-    private boolean isRoundOver() {
+    public void passRound(){
+        // set active player isPassed to true
+        gameState.getCurrentPlayer().setHasPassed(true);
+    }
+
+    public boolean hasPlayerPassed(){
+        if(gameState.getCurrentPlayer().isHasPassed()){
+            return true;
+        }
+        return false;
+    }
+
+    public boolean isRoundOver() {
         Player player1 = gameState.getListOfPlayers().get(0);
         Player player2 = gameState.getListOfPlayers().get(1);
 
@@ -235,7 +246,7 @@ public class GameService {
                 (isPlayer1Passed && isPlayer2HandEmpty);
     }
 
-    private void endRound(){
+    public void endRound(){
         //get total scores for each plyer
         int player1score = gameState.getBoard().getPlayer1scores().get("Total");
         int player2score = gameState.getBoard().getPlayer2scores().get("Total");
@@ -266,7 +277,7 @@ public class GameService {
         gameState.getBoard().clearBoard();
     }
 
-    private boolean isGameOver(){
+    public boolean isGameOver(){
         // if either player has ran out of lives or if both players have ran out of cards
         return gameState.getListOfPlayers().get(0).getLives() == 0 ||
                 gameState.getListOfPlayers().get(1).getLives() == 0 ||
@@ -275,7 +286,7 @@ public class GameService {
                 gameState.getListOfPlayers().get(1).getHand().isEmpty();
     }
 
-    private String endGame(){
+    public String endGame(){
         //determine the final winner based on player lives
         if (gameState.getListOfPlayers().get(0).getLives() == 0 || gameState.getListOfPlayers().get(0).getLives() < gameState.getListOfPlayers().get(1).getLives()) {
             return "Player 1 wins the game!";
