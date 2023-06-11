@@ -6,97 +6,90 @@ import com.example.capstoneProject.models.Cards.Range;
 import com.example.capstoneProject.models.Cards.Siege;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Board {
-    Player player1;
-    Player player2;
-    Range range;
-    Melee melee;
-    Siege siege;
-    ArrayList<Card> deployedCardsPlayer1;
-    ArrayList<Card> deployedCardsPlayer2;
+    private HashMap<String, ArrayList<Card>> player1Cards;  // HashMap to hold player 1 cards
+    private HashMap<String, ArrayList<Card>> player2Cards;  // HashMap to hold player 2 cards
 
-    public Board(Player player1, Player player2, Range range, Melee melee, Siege siege, ArrayList<Card> deployedCardsPlayer1, ArrayList<Card> deployedCardsPlayer2) {
-        this.player1 = player1;
-        this.player2 = player2;
-        this.range = range;
-        this.melee = melee;
-        this.siege = siege;
-        this.deployedCardsPlayer1 = deployedCardsPlayer1;
-        this.deployedCardsPlayer2 = deployedCardsPlayer2;
-    }
+    private HashMap<String, Integer> player1scores;
+    private HashMap<String, Integer> player2scores;
+
 
     public Board() {
+
+        player1Cards = new HashMap<>();
+        player1Cards.put("Melee", new ArrayList<>());
+        player1Cards.put("Range", new ArrayList<>());
+        player1Cards.put("Siege", new ArrayList<>());
+
+        player1scores = new HashMap<>();
+        player1scores.put("Melee", 0);
+        player1scores.put("Range", 0);
+        player1scores.put("Siege", 0);
+        player1scores.put("Total", 0);
+
+        player2Cards = new HashMap<>();
+        player2Cards.put("Melee", new ArrayList<>());
+        player2Cards.put("Range", new ArrayList<>());
+        player2Cards.put("Siege", new ArrayList<>());
+
+        player2scores = new HashMap<>();
+        player2scores.put("Melee", 0);
+        player2scores.put("Range", 0);
+        player2scores.put("Siege", 0);
+        player2scores.put("Total", 0);
+
     }
 
-    public Player getPlayer1() {
-        return player1;
+    public HashMap<String, ArrayList<Card>> getPlayer1Cards() {
+        return player1Cards;
     }
 
-    public void setPlayer1(Player player1) {
-        this.player1 = player1;
+    public void setPlayer1Cards(HashMap<String, ArrayList<Card>> player1Cards) {
+        this.player1Cards = player1Cards;
     }
 
-    public Player getPlayer2() {
-        return player2;
+    public HashMap<String, ArrayList<Card>> getPlayer2Cards() {
+        return player2Cards;
     }
 
-    public void setPlayer2(Player player2) {
-        this.player2 = player2;
+    public void setPlayer2Cards(HashMap<String, ArrayList<Card>> player2Cards) {
+        this.player2Cards = player2Cards;
     }
 
-    public Range getRange() {
-        return range;
+    public HashMap<String, Integer> getPlayer1scores() {
+        return player1scores;
     }
 
-    public void setRange(Range range) {
-        this.range = range;
+    public void setPlayer1scores(HashMap<String, Integer> player1scores) {
+        this.player1scores = player1scores;
     }
 
-    public Melee getMelee() {
-        return melee;
+    public HashMap<String, Integer> getPlayer2scores() {
+        return player2scores;
     }
 
-    public void setMelee(Melee melee) {
-        this.melee = melee;
+    public void setPlayer2scores(HashMap<String, Integer> player2scores) {
+        this.player2scores = player2scores;
     }
 
-    public Siege getSiege() {
-        return siege;
+    public void clearBoard(){
+        player1Cards.get("Melee").clear();
+        player1Cards.get("Range").clear();
+        player1Cards.get("Siege").clear();
+        player2Cards.get("Melee").clear();
+        player2Cards.get("Range").clear();
+        player2Cards.get("Siege").clear();
+
+        player1scores.put("Melee", 0);
+        player1scores.put("Range", 0);
+        player1scores.put("Siege", 0);
+        player1scores.put("Total", 0);
+
+        player2scores.put("Melee", 0);
+        player2scores.put("Range", 0);
+        player2scores.put("Siege", 0);
+        player2scores.put("Total", 0);
     }
-
-    public void setSiege(Siege siege) {
-        this.siege = siege;
-    }
-
-    public ArrayList<Card> getDeployedCardsPlayer1() {
-        return deployedCardsPlayer1;
-    }
-
-    public void setDeployedCardsPlayer1(ArrayList<Card> deployedCardsPlayer1) {
-        this.deployedCardsPlayer1 = deployedCardsPlayer1;
-    }
-
-    public ArrayList<Card> getDeployedCardsPlayer2() {
-        return deployedCardsPlayer2;
-    }
-
-    public void setDeployedCardsPlayer2(ArrayList<Card> deployedCardsPlayer2) {
-        this.deployedCardsPlayer2 = deployedCardsPlayer2;
-    }
-
-    public void placeCard(Card chosenCard, Player currentPlayer){ //or PlayerIndex
-        //check card for cardType
-        //check card for rowType
-        //check player or playerIndex
-        //then place in correct list player1 or player2
-    }
-
-    public void tallyScores(){
-        //loop through player 1 row types and tally them add them row totals
-        //repeat for player 2
-        //calculate and set each player total
-    }
-
-
 }

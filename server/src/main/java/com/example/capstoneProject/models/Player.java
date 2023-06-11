@@ -19,7 +19,6 @@ public class Player {
     private String name;
 
 
-
     @JsonIgnoreProperties({"players", "hibernateLazyInitializer"})
     @ManyToMany
     @JoinTable(

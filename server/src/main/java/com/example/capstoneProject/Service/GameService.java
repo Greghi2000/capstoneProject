@@ -13,15 +13,13 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
 public class GameService {
-//    Board board;
-//    private Player currentPlayer;
-//    private ArrayList<Player> listOfPlayers;
 
     CardRepository cardRepository;
 
@@ -29,9 +27,6 @@ public class GameService {
     GameState gameState;
 
     public GameService(CardRepository cardRepository) {
-//        this.board = null;
-////        this.currentPlayer = currentPlayer;
-//        this.listOfPlayers = listOfPlayers;
         this.cardRepository = cardRepository;
         this.gameState = new GameState();
     }
@@ -49,6 +44,7 @@ public class GameService {
     public void setGameState(GameState gameState) {
         this.gameState = gameState;
     }
+
     public CardRepository getCardRepository() {
         return cardRepository;
     }
@@ -59,34 +55,35 @@ public class GameService {
 
     //GAME SERVICES
 
-    public void startGame(){
+    public void startGame() {
         GameState gameState = new GameState();
         this.setGameState(gameState);
         System.out.println("GAME WAS STARTED");
     }
-    public void setActivePlayerForStart(){
+
+    //sets players a number 1 or 2 to allow board to assign positions, and makes the first player the active player
+    public void setActivePlayerAtStart() {
         Player activePlayer = gameState.getListOfPlayers().get(0);
         gameState.setCurrentPlayer(activePlayer);
     }
 
     public ArrayList<Card> starterDeck(Player player) {
-    ArrayList<Card> deck = new ArrayList<>();
-    int i = 1;
-    while (i <= 30) {
-        double randomNum = Math.random();
-        long finalRandomNum = Math.round((randomNum * 45) + 1);
-        boolean existsInDeck = deck.stream().anyMatch(card -> card.getId() == finalRandomNum);
-        if (existsInDeck) {
-            continue;
+        ArrayList<Card> deck = new ArrayList<>();
+        int i = 1;
+        while (i <= 30) {
+            double randomNum = Math.random();
+            long finalRandomNum = Math.round((randomNum * 45) + 1);
+            boolean existsInDeck = deck.stream().anyMatch(card -> card.getId() == finalRandomNum);
+            if (existsInDeck) {
+                continue;
+            }
+            Card cardFromDb = cardRepository.getReferenceById(finalRandomNum);
+            cardFromDb.getPlayers().add(player);
+            cardRepository.save(cardFromDb);
+            deck.add(cardFromDb);
+            i++;
         }
-        Card cardFromDb = cardRepository.getReferenceById(finalRandomNum);
-        cardFromDb.getPlayers().add(player);
-        cardRepository.save(cardFromDb);
-        deck.add(cardFromDb);
-        i++;
-    }
-    player.setDeck(deck);
-
+        player.setDeck(deck);
 
 
 //    ArrayList<Player> listOfGSPlayers = getGameState().getListOfPlayers();
@@ -102,14 +99,15 @@ public class GameService {
 //            thisPlayer = player;
 //        }
 //    }
-    return deck;
-}
+        return deck;
+    }
 
-    public ArrayList<Card> fetchPlayerDeck(Player player){
+    public ArrayList<Card> fetchPlayerDeck(Player player) {
         player.getDeck();
         return null;
     }
-    public ArrayList<Card> playerDeckCheck(Player player){
+
+    public ArrayList<Card> playerDeckCheck(Player player) {
         // check if player has a deck/exists already
         // if he does fetch deck from DB
         // if not generate new deck by calling generateNewDeck()
@@ -133,17 +131,178 @@ public class GameService {
         getGameState().setCurrentPlayer(newCurrentPlayer);
     }
 
-//    public void playCard(Card chosenCard){
-//        //call board method to add card to board
-//            //check card type/row type
-//            //check currentPlayer
-//            //Add to correct list
-//    }
 
-//    public Board getBoardState(){
-//        //call service to tallyBoard to update board values
-//        //return the current board in gameState
-//    }
+    public void addCardToBoard(Card chosenCard) {
+        Long player1Id = gameState.getListOfPlayers().get(0).getId();
+        Long player2Id = gameState.getListOfPlayers().get(1).getId();
+
+        if (chosenCard.getCardType().equals("Unit")) {
+            if (getGameState().getCurrentPlayer().getId() == player1Id) {
+                if (chosenCard.getRowType().equals("Melee")) {
+                    getGameState().getBoard().getPlayer1Cards().get("Melee").add(chosenCard);
+                } else if (chosenCard.getRowType().equals("Range")) {
+                    getGameState().getBoard().getPlayer1Cards().get("Range").add(chosenCard);
+                } else if (chosenCard.getRowType().equals("Siege")) {
+                    getGameState().getBoard().getPlayer1Cards().get("Siege").add(chosenCard);
+                }
+
+            } else if (getGameState().getCurrentPlayer().getId() == player2Id) {
+                if (chosenCard.getRowType().equals("Melee")) {
+                    getGameState().getBoard().getPlayer2Cards().get("Melee").add(chosenCard);
+                } else if (chosenCard.getRowType().equals("Range")) {
+                    getGameState().getBoard().getPlayer2Cards().get("Range").add(chosenCard);
+                } else if (chosenCard.getRowType().equals("Siege")) {
+                    getGameState().getBoard().getPlayer2Cards().get("Siege").add(chosenCard);
+                }
+            }
+            gameState.getCurrentPlayer().getHand().remove(chosenCard);
+        }
+    }
+
+    //updates all the scores in Board
+    public void tallyScores() {
+        // Calculate scores for player1 melee
+        ArrayList<Card> player1MeleeCards = getGameState().getBoard().getPlayer1Cards().get("Melee");
+        int totalPlayer1MeleeScore = calculateRowTotal(player1MeleeCards);
+        HashMap<String, Integer> player1scores = getGameState().getBoard().getPlayer1scores();
+        player1scores.put("Melee", totalPlayer1MeleeScore);
+
+        // Calculate scores for player1 range
+        ArrayList<Card> player1RangeCards = getGameState().getBoard().getPlayer1Cards().get("Range");
+        int totalPlayer1RangeScore = calculateRowTotal(player1RangeCards);
+        player1scores.put("Range", totalPlayer1RangeScore);
+
+        // Calculate scores for player1 siege
+        ArrayList<Card> player1SiegeCards = getGameState().getBoard().getPlayer1Cards().get("Siege");
+        int totalPlayer1SiegeScore = calculateRowTotal(player1SiegeCards);
+        player1scores.put("Siege", totalPlayer1SiegeScore);
+
+        // Update total score for player1
+        int totalPlayer1Score = player1scores.values().stream().mapToInt(Integer::intValue).sum();
+        player1scores.put("Total", totalPlayer1Score);
+
+        // Calculate scores for player2 melee
+        ArrayList<Card> player2MeleeCards = getGameState().getBoard().getPlayer2Cards().get("Melee");
+        int totalPlayer2MeleeScore = calculateRowTotal(player2MeleeCards);
+        HashMap<String, Integer> player2scores = getGameState().getBoard().getPlayer2scores();
+        player2scores.put("Melee", totalPlayer2MeleeScore);
+
+        // Calculate scores for player2 range
+        ArrayList<Card> player2RangeCards = getGameState().getBoard().getPlayer2Cards().get("Range");
+        int totalPlayer2RangeScore = calculateRowTotal(player2RangeCards);
+        player2scores.put("Range", totalPlayer2RangeScore);
+
+        // Calculate scores for player2 siege
+        ArrayList<Card> player2SiegeCards = getGameState().getBoard().getPlayer2Cards().get("Siege");
+        int totalPlayer2SiegeScore = calculateRowTotal(player2SiegeCards);
+        player2scores.put("Siege", totalPlayer2SiegeScore);
+
+        // Update total score for player2
+        int totalPlayer2Score = player2scores.values().stream().mapToInt(Integer::intValue).sum();
+        player2scores.put("Total", totalPlayer2Score);
+    }
+
+
+    public int calculateRowTotal(ArrayList<Card> row) {
+        if (row == null) {
+            return 0;
+        }
+
+        int total = 0;
+        for (Card card : row) {
+            if (card == null) {
+                continue; // Skip this card and continue with the next one
+            }
+
+            total += card.getPower();
+        }
+        return total;
+    }
+
+    public void passRound(){
+        // set active player isPassed to true
+        gameState.getCurrentPlayer().setHasPassed(true);
+    }
+
+    public boolean hasPlayerPassed(){
+        if(gameState.getCurrentPlayer().isHasPassed()){
+            return true;
+        }
+        return false;
+    }
+
+    public boolean isRoundOver() {
+        Player player1 = gameState.getListOfPlayers().get(0);
+        Player player2 = gameState.getListOfPlayers().get(1);
+
+        boolean isPlayer1HandEmpty = player1.getHand().isEmpty();
+        boolean isPlayer2HandEmpty = player2.getHand().isEmpty();
+        boolean isPlayer1Passed = player1.isHasPassed();
+        boolean isPlayer2Passed = player2.isHasPassed();
+
+        return (isPlayer1HandEmpty && isPlayer2HandEmpty) ||
+                (isPlayer1Passed && isPlayer2Passed) ||
+                (isPlayer1HandEmpty && isPlayer2Passed) ||
+                (isPlayer1Passed && isPlayer2HandEmpty);
+    }
+
+    public void endRound(){
+        //get total scores for each plyer
+        int player1score = gameState.getBoard().getPlayer1scores().get("Total");
+        int player2score = gameState.getBoard().getPlayer2scores().get("Total");
+
+        //calculate round winner
+        //if player 1 won
+        if (player1score > player2score){
+            gameState.getListOfPlayers().get(1).setLives(gameState.getListOfPlayers().get(1).getLives() - 1);
+            System.out.println("player1 won the round");
+        }
+        //if player 2 won
+        else if (player2score > player1score){
+            gameState.getListOfPlayers().get(0).setLives(gameState.getListOfPlayers().get(0).getLives() - 1);
+            System.out.println("player2 won the round");
+        }
+        //if draw
+        else {
+            gameState.getListOfPlayers().get(1).setLives(gameState.getListOfPlayers().get(1).getLives() - 1);
+            gameState.getListOfPlayers().get(0).setLives(gameState.getListOfPlayers().get(0).getLives() - 1);
+            System.out.println("round ended in a draw");
+        }
+
+        //set has passed back to false for next round
+        gameState.getListOfPlayers().get(0).setHasPassed(false);
+        gameState.getListOfPlayers().get(1).setHasPassed(false);
+
+        //clear the board for next round
+        gameState.getBoard().clearBoard();
+    }
+
+    public boolean isGameOver(){
+        // if either player has ran out of lives or if both players have ran out of cards
+        return gameState.getListOfPlayers().get(0).getLives() == 0 ||
+                gameState.getListOfPlayers().get(1).getLives() == 0 ||
+
+                gameState.getListOfPlayers().get(0).getHand().isEmpty() &&
+                gameState.getListOfPlayers().get(1).getHand().isEmpty();
+    }
+
+    public String endGame(){
+        //determine the final winner based on player lives
+        if (gameState.getListOfPlayers().get(0).getLives() == 0 || gameState.getListOfPlayers().get(0).getLives() < gameState.getListOfPlayers().get(1).getLives()) {
+            return "Player 1 wins the game!";
+        } else if (gameState.getListOfPlayers().get(1).getLives() == 0 || gameState.getListOfPlayers().get(1).getLives() < gameState.getListOfPlayers().get(0).getLives()) {
+            return "Player 2 wins the game!";
+        }
+        else {
+            return "Game ended in a draw!";
+        }
+    }
+
+}
+
+
+
+
 
 
 
@@ -234,4 +393,4 @@ public class GameService {
 //        this.listOfPlayers = listOfPlayers;
 //    }
 
-}
+
