@@ -14,6 +14,8 @@ function App() {
   const [activePlayerHand, setActivePlayerHand] = useState([]);
   const [chosenCard, setChosenCard] = useState(null);
   const [submitted, setSubmitted] = useState([]);
+  const [toggledPlayerSumbmit, setToggledPlayerSumbmit] = useState([]);
+  const [hand, setHand] = useState([]);
 
 
     
@@ -25,6 +27,7 @@ function App() {
 
     // ready to change player when dependency changes
     useEffect(() => {
+      setHand([])
         fetch(`http://localhost:8080/api/player/${activePlayerId}`)
         .then(res => res.json())
         .then(player => setChosenPlayer(player))
@@ -35,7 +38,7 @@ function App() {
     useEffect(() => {
       // Fetch the chosen player's hand when the chosenPlayer changes
       if (chosenPlayer) {
-        console.log('chosenPlayer changed NOW and is: ' + chosenPlayer.name);
+        console.log('chosenPlayer changed  is: ' + chosenPlayer.name);
         fetch(`http://localhost:8080/api/gamestate/getActivePlayer`)
           .then((res) => res.json())
           .then((player) => setActivePlayerHand(player.hand))
@@ -44,8 +47,7 @@ function App() {
             console.error('Error fetching active player hand:', error);
           });
         }
-        // console.log("This is the active players hand" + player.hand)
-    }, [submitted]);
+    }, [submitted]); // this use effect is not being called???
   
   
   
@@ -59,8 +61,11 @@ function App() {
           </div>
         ))} */}
           <Game setActivePlayerId = {setActivePlayerId}/>
-          <HandSelection chosenPlayer = {chosenPlayer} setSubmitted ={setSubmitted}/>
-          <Hand chosenPlayer = {chosenPlayer} chosenCard = {chosenCard} setChosenCard = {setChosenCard}/>
+          <HandSelection chosenPlayer = {chosenPlayer} setSubmitted ={setSubmitted} hand = {hand}
+          setHand = {setHand}/>
+          <Hand setSubmitted ={setSubmitted} activePlayerHand ={activePlayerHand}
+            setChosenPlayer={setChosenPlayer} setActivePlayerId={setActivePlayerId}
+          />
       </>
     );
 }

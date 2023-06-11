@@ -1,18 +1,18 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-
+//DECK
 
 //this component currently allows the chosen player to choose their hand from their deck
-const HandSelection = ({ chosenPlayer, setSubmitted }) => {
-  const [hand, setHand] = useState([]);
+const HandSelection = ({ chosenPlayer, setSubmitted, hand, setHand }) => {
 
   const handleClick = (card, name, power) => {
     console.log(`Clicked on card - Name: ${name} | Power: ${power}`);
     //!check needed to stop a card being selected twice!
     if (hand.length < 10) {
-      setHand((prevHand) => [...prevHand, card]);
+      setHand((prevHand) => [...prevHand, card]); // The state is currently carrying over, so if
+      // the hand has some cards in it, the cards now carry over into the new players hand, have to make =[]
+      //when new player is chosen.
     }
-    console.log(`Current array list: ${hand}`);
   };
 
   const handleHandSubmit = async (e) => {
@@ -24,9 +24,7 @@ const HandSelection = ({ chosenPlayer, setSubmitted }) => {
         'http://localhost:8080/api/players/hand',
         hand
       );
-      console.log("Hand posted: " + response.data);
       setSubmitted(true)
-      console.log("chosenPlayer after handselection:" + chosenPlayer.name + " " + chosenPlayer.hand )
     } catch (error) {
       console.error(error);
     }
@@ -34,6 +32,7 @@ const HandSelection = ({ chosenPlayer, setSubmitted }) => {
 
   return (
     <>
+    <h1>Where the active players deck is</h1>
       {chosenPlayer && chosenPlayer.deck && chosenPlayer.deck.length > 0 ? (
         chosenPlayer.deck.map((card) => (
           <div>
