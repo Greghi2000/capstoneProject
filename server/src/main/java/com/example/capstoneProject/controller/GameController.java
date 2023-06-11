@@ -71,6 +71,7 @@ public class GameController {
     //use this to post a card to play to the board
     public ResponseEntity<HttpStatus> playNewCard (@RequestBody Card chosenCard){
         gameService.addCardToBoard(chosenCard);
+        System.out.println("Card posted: " + chosenCard);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 

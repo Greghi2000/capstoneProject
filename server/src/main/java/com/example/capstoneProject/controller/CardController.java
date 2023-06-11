@@ -18,9 +18,6 @@ public class CardController {
     @Autowired
     CardRepository cardRepository;
 
-
-
-
 @GetMapping(value = "/cards")
     public ResponseEntity<List<Card>> getAllCards(){
         return new ResponseEntity<>(cardRepository.findAll(), HttpStatus.OK);
