@@ -72,6 +72,8 @@ public class GameController {
     public ResponseEntity<HttpStatus> playNewCard (@RequestBody Card chosenCard){
         gameService.addCardToBoard(chosenCard);
         System.out.println("Card posted: " + chosenCard);
+        //still need to remove the card from the playerHand
+
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
@@ -81,6 +83,8 @@ public class GameController {
         gameService.tallyScores();
         return new ResponseEntity<>(gameService.getGameState().getBoard(), HttpStatus.OK);
     }
+
+    //
 
 
 

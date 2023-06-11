@@ -73,4 +73,23 @@ public class Board {
     public void setPlayer2scores(HashMap<String, Integer> player2scores) {
         this.player2scores = player2scores;
     }
+
+    public void clearBoard(){
+        player1Cards.get("Melee").clear();
+        player1Cards.get("Range").clear();
+        player1Cards.get("Siege").clear();
+        player2Cards.get("Melee").clear();
+        player2Cards.get("Range").clear();
+        player2Cards.get("Siege").clear();
+
+        player1scores.put("Melee", 0);
+        player1scores.put("Range", 0);
+        player1scores.put("Siege", 0);
+        player1scores.put("Total", 0);
+
+        player2scores.put("Melee", 0);
+        player2scores.put("Range", 0);
+        player2scores.put("Siege", 0);
+        player2scores.put("Total", 0);
+    }
 }
