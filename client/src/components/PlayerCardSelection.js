@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import axios from 'axios';
 const PlayerCardSelection = ({activePlayer, setActivePlayer}) => {
     const [activePlayerSelectedHand, setActivePlayerSelectedHand] = useState([])
-    const [chosenCard, setChosenCard] = useState(null)
+    const [activePlayerSelectedCard, setActivePlayerSelectedCard] = useState(null)
 
 
     //choosing hand from deck
@@ -20,6 +20,7 @@ const PlayerCardSelection = ({activePlayer, setActivePlayer}) => {
             e.preventDefault();
             console.log("Youve already submitted your hand")
         } else {
+        setActivePlayerSelectedHand([])
         e.preventDefault();
         try {
           const response = await axios.post(
@@ -45,7 +46,7 @@ const PlayerCardSelection = ({activePlayer, setActivePlayer}) => {
 
       const handleChosenCardClick = (card, name, power) => {
         console.log(`Clicked on card - Name: ${name} | Power: ${power}`);
-        setChosenCard(card);
+        setActivePlayerSelectedCard(card);
       }
 
       const handleChosenCardSubmission = async (e) => {
@@ -53,7 +54,7 @@ const PlayerCardSelection = ({activePlayer, setActivePlayer}) => {
         try {
           const response = await axios.post(
             'http://localhost:8080/api/gamestate/playCard',
-            chosenCard
+            activePlayerSelectedCard
           );
           if(response.status === 200){
             try {
@@ -69,14 +70,13 @@ const PlayerCardSelection = ({activePlayer, setActivePlayer}) => {
           console.error(error);
         }
       }
- 
-    
+      
     return (
       <>
       {activePlayer &&
         (activePlayer.hand.length >= 1 ? (
           activePlayer.hand.map((card) => (
-            <div key={card.id}>
+            <div>
               <p onClick={() => handleChosenCardClick(card, card.name, card.power)}>
                 Name of Card: {card.name} || Power: {card.power}
               </p>
@@ -96,9 +96,7 @@ const PlayerCardSelection = ({activePlayer, setActivePlayer}) => {
             </form>
           </>
         ))}
-      
-      {/* Submit button for chosen card */}
-      {chosenCard && (
+      {activePlayerSelectedCard && (
         <form onSubmit={handleChosenCardSubmission}>
           <input type="submit" value="Play Chosen Card" />
         </form>

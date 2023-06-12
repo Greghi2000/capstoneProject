@@ -155,7 +155,15 @@ public class GameService {
                     getGameState().getBoard().getPlayer2Cards().get("Siege").add(chosenCard);
                 }
             }
-            gameState.getCurrentPlayer().getHand().remove(chosenCard);
+            List<Card> listOfCards = gameState.getCurrentPlayer().getHand();
+            for(Card card : listOfCards){
+                if(card.getName() == chosenCard.getName()){
+                    listOfCards.remove(chosenCard);
+                    gameState.getCurrentPlayer().setHand(listOfCards);
+                }
+            }
+            System.out.println("Is it removing?");
+            System.out.println("This is the current player hand" + gameState.getCurrentPlayer().getHand());
         }
     }
 
