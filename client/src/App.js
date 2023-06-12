@@ -11,7 +11,7 @@ function App() {
       <>
         <StartGame setActivePlayer={setActivePlayer}/>
         <PlayerCardSelection activePlayer={activePlayer} setActivePlayer ={setActivePlayer}/>
-        <Board/>
+        <Board activePlayer={activePlayer}/>
       </>
     );
 }

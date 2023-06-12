@@ -18,7 +18,7 @@ const PlayerCardSelection = ({activePlayer, setActivePlayer}) => {
       const handleHandSubmit = async (e) => {
         if(activePlayer.hand.length >= 1) {
             e.preventDefault();
-            console.log("Youve already submitted your hand")
+            console.log("You've already submitted your hand")
         } else {
         setActivePlayerSelectedHand([])
         e.preventDefault();
