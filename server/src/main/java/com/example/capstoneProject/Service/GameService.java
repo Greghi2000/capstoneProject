@@ -186,7 +186,7 @@ public class GameService {
         player1scores.put("Siege", totalPlayer1SiegeScore);
 
         // Update total score for player1
-        int totalPlayer1Score = player1scores.values().stream().mapToInt(Integer::intValue).sum();
+        int totalPlayer1Score = totalPlayer1MeleeScore + totalPlayer1RangeScore + totalPlayer1SiegeScore;
         player1scores.put("Total", totalPlayer1Score);
 
         // Calculate scores for player2 melee
@@ -206,7 +206,8 @@ public class GameService {
         player2scores.put("Siege", totalPlayer2SiegeScore);
 
         // Update total score for player2
-        int totalPlayer2Score = player2scores.values().stream().mapToInt(Integer::intValue).sum();
+        int totalPlayer2Score = totalPlayer2MeleeScore + totalPlayer2RangeScore + totalPlayer2SiegeScore;
+
         player2scores.put("Total", totalPlayer2Score);
     }
 
