@@ -87,45 +87,49 @@ const PlayerCardSelection = ({ activePlayer, setActivePlayer }) => {
 
   return (
     <div className="PlayerCardSelection">
-      {activePlayer &&
-        (activePlayer.hand.length >= 1 ? (
-          <>
-            {activePlayer.hand.map((card) => (
-              <div
-                key={card.id}
-                className={`card ${activePlayerSelectedCard && activePlayerSelectedCard.id === card.id ? 'active' : ''}`}
-                onClick={() => handleChosenCardClick(card, card.name, card.power)}
-              >
-                <p>
-                  Name of Card: {card.name} || Power: {card.power}
-                </p>
-              </div>
-            ))}
-            <form onSubmit={handleChosenCardSubmission}>
-              <input type="submit" value="Play Chosen Card" />
-            </form>
-          </>
-        ) : (
-          <>
-            {activePlayer.deck.map((card) => (
-              <div
-                key={card.id}
-                className={`card ${activePlayerSelectedHand.some((selectedCard) => selectedCard.id === card.id) ? 'selected' : ''}`}
-                onClick={() => handleClick(card, card.name, card.power)}
-              >
-                <p>
-                  Name of Card: {card.name} || Power: {card.power}
-                </p>
-              </div>
-            ))}
-            <form onSubmit={handleHandSubmit}>
-              <input type="submit" value="Submit" />
-            </form>
-          </>
-        ))}
-      <form onSubmit={handlePassRound}>
-        <input type="submit" value="Pass Round" />
-      </form>
+      {activePlayer && (
+        <>
+          <p>Current Player Turn: {activePlayer.name}</p>
+          {activePlayer.hand.length >= 1 ? (
+            <>
+              {activePlayer.hand.map((card) => (
+                <div
+                  key={card.id}
+                  className={`card ${activePlayerSelectedCard && activePlayerSelectedCard.id === card.id ? 'active' : ''}`}
+                  onClick={() => handleChosenCardClick(card, card.name, card.power)}
+                >
+                  <p>
+                    Name of Card: {card.name} || Power: {card.power}
+                  </p>
+                </div>
+              ))}
+              <form onSubmit={handleChosenCardSubmission}>
+                <input type="submit" value="Play Chosen Card" />
+              </form>
+            </>
+          ) : (
+            <>
+              {activePlayer.deck.map((card) => (
+                <div
+                  key={card.id}
+                  className={`card ${activePlayerSelectedHand.some((selectedCard) => selectedCard.id === card.id) ? 'selected' : ''}`}
+                  onClick={() => handleClick(card, card.name, card.power)}
+                >
+                  <p>
+                    Name of Card: {card.name} || Power: {card.power}
+                  </p>
+                </div>
+              ))}
+              <form onSubmit={handleHandSubmit}>
+                <input type="submit" value="Submit" />
+              </form>
+            </>
+          )}
+          <form onSubmit={handlePassRound}>
+            <input type="submit" value="Pass Round" />
+          </form>
+        </>
+      )}
     </div>
   );
 };
