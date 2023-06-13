@@ -503,13 +503,13 @@ public class DataLoader implements ApplicationRunner {
                     duplicationCount = 1;
                     break;
                 case "Epic":
-                    duplicationCount = 3;
+                    duplicationCount = 4;
                     break;
                 case "Rare":
-                    duplicationCount = 5;
+                    duplicationCount = 6;
                     break;
                 case "Common":
-                    duplicationCount = 10;
+                    duplicationCount = 8;
                     break;
                 default:
                     duplicationCount = 0;

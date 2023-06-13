@@ -72,7 +72,7 @@ public class GameService {
         int i = 1;
         while (i <= 30) {
             double randomNum = Math.random();
-            long finalRandomNum = Math.round((randomNum * 45) + 1);
+            long finalRandomNum = Math.round((randomNum * 70) + 1);
             boolean existsInDeck = deck.stream().anyMatch(card -> card.getId() == finalRandomNum);
             if (existsInDeck) {
                 continue;
