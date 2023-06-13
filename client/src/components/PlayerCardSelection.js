@@ -5,6 +5,7 @@ import './PlayerCardSelection.css';
 const PlayerCardSelection = ({ activePlayer, setActivePlayer }) => {
   const [activePlayerSelectedHand, setActivePlayerSelectedHand] = useState([]);
   const [activePlayerSelectedCard, setActivePlayerSelectedCard] = useState(null);
+  const [hoveredCard, setHoveredCard] = useState(null);
 
   // Choosing hand from deck
 
@@ -85,11 +86,19 @@ const PlayerCardSelection = ({ activePlayer, setActivePlayer }) => {
     }
   };
 
+  const handleCardMouseEnter = (card) => {
+    setHoveredCard(card);
+  };
+
+  const handleCardMouseLeave = () => {
+    setHoveredCard(null);
+  };
+
   return (
     <div className="PlayerCardSelection">
       {activePlayer && (
         <>
-          <p>Current Player Turn: {activePlayer.name}</p>
+          <p>{activePlayer.name}</p>
           {activePlayer.hand.length >= 1 ? (
             <>
               {activePlayer.hand.map((card) => (
@@ -97,10 +106,15 @@ const PlayerCardSelection = ({ activePlayer, setActivePlayer }) => {
                   key={card.id}
                   className={`card ${activePlayerSelectedCard && activePlayerSelectedCard.id === card.id ? 'active' : ''}`}
                   onClick={() => handleChosenCardClick(card, card.name, card.power)}
+                  onMouseEnter={() => handleCardMouseEnter(card)}
+                  onMouseLeave={handleCardMouseLeave}
                 >
                   <p>
                     Name of Card: {card.name} || Power: {card.power}
                   </p>
+                  {hoveredCard && hoveredCard.id === card.id && (
+                    <p className="flavor-text">{card.flavor}</p>
+                  )}
                 </div>
               ))}
               <form onSubmit={handleChosenCardSubmission}>
@@ -114,10 +128,15 @@ const PlayerCardSelection = ({ activePlayer, setActivePlayer }) => {
                   key={card.id}
                   className={`card ${activePlayerSelectedHand.some((selectedCard) => selectedCard.id === card.id) ? 'selected' : ''}`}
                   onClick={() => handleClick(card, card.name, card.power)}
+                  onMouseEnter={() => handleCardMouseEnter(card)}
+                  onMouseLeave={handleCardMouseLeave}
                 >
                   <p>
                     Name of Card: {card.name} || Power: {card.power}
                   </p>
+                  {hoveredCard && hoveredCard.id === card.id && (
+                    <p className="flavor-text">{card.flavor}</p>
+                  )}
                 </div>
               ))}
               <form onSubmit={handleHandSubmit}>
