@@ -19,8 +19,8 @@ function App() {
       {!playersSubmitted && (
         <StartGame setActivePlayer={setActivePlayer} onPlayersSubmitted={handlePlayersSubmitted} />
       )}
-      <PlayerCardSelection activePlayer={activePlayer} setActivePlayer={setActivePlayer} />
       <Board activePlayer={activePlayer} />
+      <PlayerCardSelection activePlayer={activePlayer} setActivePlayer={setActivePlayer} />
     </>
   );
 }
