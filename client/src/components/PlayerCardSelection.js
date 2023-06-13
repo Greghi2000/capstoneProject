@@ -60,9 +60,29 @@ const PlayerCardSelection = ({ activePlayer, setActivePlayer }) => {
       );
       if (response.status === 200) {
         try {
-          const response = await axios.get('http://localhost:8080/api/gamestate/togglePlayer');
-          console.log(response.data);
-          setActivePlayer(response.data);
+          const roundOverResponse = await axios.get('http://localhost:8080/api/gamestate/isRoundOver');
+          console.log(roundOverResponse.data);
+          if (roundOverResponse.data === true) {
+            console.log("The round is over");
+  
+            try {
+              const gameOverResponse = await axios.get('http://localhost:8080/api/gamestate/isGameOver');
+              console.log(gameOverResponse.data);
+              if (gameOverResponse.data === true) {
+                console.log("The game is over");
+                // Perform actions for game over
+              } else {
+                console.log("The game is not over");
+              }
+            } catch (error) {
+              console.error(error);
+            }
+          } else {
+            console.log("The round is not over");
+            const toggleResponse = await axios.get('http://localhost:8080/api/gamestate/togglePlayer');
+            console.log(toggleResponse.data);
+            setActivePlayer(toggleResponse.data);
+          }
         } catch (error) {
           console.error(error);
         }
@@ -71,6 +91,7 @@ const PlayerCardSelection = ({ activePlayer, setActivePlayer }) => {
       console.error(error);
     }
   };
+    
 
   const handlePassRound = async (e) => {
     e.preventDefault();
