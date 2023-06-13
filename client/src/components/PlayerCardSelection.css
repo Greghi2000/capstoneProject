@@ -1,0 +1,35 @@
+/* .PlayerCardSelection {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+  }
+  
+  .PlayerCardSelection .card {
+    border: 1px solid #ccc;
+    padding: 10px;
+    cursor: pointer;
+  }
+  
+  .PlayerCardSelection .card.selected {
+    background-color: #f1f1f1;
+    color: #333;
+  }
+   */
+   .PlayerCardSelection {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+  }
+  
+  .PlayerCardSelection .card {
+    border: 1px solid #ccc;
+    padding: 10px;
+    cursor: pointer;
+  }
+  
+  .PlayerCardSelection .card.selected,
+  .PlayerCardSelection .card.active {
+    background-color: #f1f1f1;
+    color: #333;
+  }
+  
