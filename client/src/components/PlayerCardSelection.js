@@ -70,15 +70,13 @@ const PlayerCardSelection = ({ activePlayer, setActivePlayer }) => {
               console.log(gameOverResponse.data);
               if (gameOverResponse.data === true) {
                 console.log("The game is over");
-                // Perform actions for game over
+                
               } else {
-                console.log("The game is not over");
               }
             } catch (error) {
               console.error(error);
             }
           } else {
-            console.log("The round is not over");
             const toggleResponse = await axios.get('http://localhost:8080/api/gamestate/togglePlayer');
             console.log(toggleResponse.data);
             setActivePlayer(toggleResponse.data);

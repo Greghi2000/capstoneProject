@@ -115,6 +115,16 @@ public class GameController {
         }
         return new ResponseEntity<>(false, HttpStatus.OK);
     }
+    @GetMapping(value = "/api/gamestate/getGameStatus")
+    public ResponseEntity<String> getGameStatus() {
+        if (gameService.isGameOver()) {
+            return new ResponseEntity<>("Game Over!", HttpStatus.OK);
+        } else if (gameService.isRoundOver()) {
+            return new ResponseEntity<>("Round Over!", HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>("Next Turn", HttpStatus.OK);
+        }
+    }
 
 
 
