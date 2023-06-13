@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import "../components/Board.css"
 
 const Board = ({ activePlayer }) => {
   const [board, setBoard] = useState(null);
@@ -23,63 +24,79 @@ const Board = ({ activePlayer }) => {
 
   return (
     <div className="Board">
-      <div className="p1-siege-rank">
-        <h3>Siege</h3>
-        <div>
-          {player1Cards.Siege.map((card, index) => (
-            <p key={index}>{card.name} {card.power}</p>
-          ))}
+      <div className="row">
+        <div className="p1-siege-rank">
+          <h3>Siege</h3>
+          <div>
+            {player1Cards.Siege.map((card, index) => (
+              <p key={index}>
+                {card.name} {card.power}
+              </p>
+            ))}
+          </div>
+          <p>Score: {player1scores.Siege}</p>
         </div>
-        <p>Score: {player1scores.Siege}</p>
-      </div>
-      <div className="p1-range-rank">
-        <h3>Range</h3>
-        <div>
-          {player1Cards.Range.map((card, index) => (
-            <p key={index}>{card.name} {card.power}</p>
-          ))}
+        <div className="p1-range-rank">
+          <h3>Range</h3>
+          <div>
+            {player1Cards.Range.map((card, index) => (
+              <p key={index}>
+                {card.name} {card.power}
+              </p>
+            ))}
+          </div>
+          <p>Score: {player1scores.Range}</p>
         </div>
-        <p>Score: {player1scores.Range}</p>
-      </div>
-      <div className="p1-melee-rank">
-        <h3>Melee</h3>
-        <div>
-          {player1Cards.Melee.map((card, index) => (
-            <p key={index}>{card.name} {card.power}</p>
-          ))}
+        <div className="p1-melee-rank">
+          <h3>Melee</h3>
+          <div>
+            {player1Cards.Melee.map((card, index) => (
+              <p key={index}>
+                {card.name} {card.power}
+              </p>
+            ))}
+          </div>
+          <p className="p1-melee-score">Score: {player1scores.Melee}</p>
         </div>
-        <p className="p1-melee-score">Score: {player1scores.Melee}</p>
       </div>
 
       <h2 className="player-score">Player 1 Total Score: {player1scores.Total}</h2>
 
       <h2 className="player-score">Player 2 Total Score: {player2scores.Total}</h2>
-      <div className="p2-melee-rank">
-        <h3>Melee</h3>
-        <div>
-          {player2Cards.Melee.map((card, index) => (
-            <p key={index}>{card.name} {card.power}</p>
-          ))}
+      <div className="row">
+        <div className="p2-melee-rank">
+          <h3>Melee</h3>
+          <div>
+            {player2Cards.Melee.map((card, index) => (
+              <p key={index}>
+                {card.name} {card.power}
+              </p>
+            ))}
+          </div>
+          <p>Score: {player2scores.Melee}</p>
         </div>
-        <p>Score: {player2scores.Melee}</p>
-      </div>
-      <div className="p2-range-rank">
-        <h3>Range</h3>
-        <div>
-          {player2Cards.Range.map((card, index) => (
-            <p key={index}>{card.name} {card.power}</p>
-          ))}
+        <div className="p2-range-rank">
+          <h3>Range</h3>
+          <div>
+            {player2Cards.Range.map((card, index) => (
+              <p key={index}>
+                {card.name} {card.power}
+              </p>
+            ))}
+          </div>
+          <p>Score: {player2scores.Range}</p>
         </div>
-        <p>Score: {player2scores.Range}</p>
-      </div>
-      <div className="p2-siege-rank">
-        <h3>Siege</h3>
-        <div>
-          {player2Cards.Siege.map((card, index) => (
-            <p key={index}>{card.name} {card.power}</p>
-          ))}
+        <div className="p2-siege-rank">
+          <h3>Siege</h3>
+          <div>
+            {player2Cards.Siege.map((card, index) => (
+              <p key={index}>
+                {card.name} {card.power}
+              </p>
+            ))}
+          </div>
+          <p>Score: {player2scores.Siege}</p>
         </div>
-        <p>Score: {player2scores.Siege}</p>
       </div>
     </div>
   );

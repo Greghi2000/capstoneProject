@@ -156,12 +156,14 @@ public class GameService {
                 }
             }
             List<Card> listOfCards = gameState.getCurrentPlayer().getHand();
-            for(Card card : listOfCards){
-                if(card.getName() == chosenCard.getName()){
-                    listOfCards.remove(chosenCard);
-                    gameState.getCurrentPlayer().setHand(listOfCards);
-                }
-            }
+            Optional<Card> optionalCardToRemove = listOfCards.stream()
+                    .filter(card -> card.getName().equals(chosenCard.getName()))
+                    .findFirst();
+
+            optionalCardToRemove.ifPresent(card -> listOfCards.remove(card));
+
+            gameState.getCurrentPlayer().setHand(listOfCards);
+
             System.out.println("Is it removing?");
             System.out.println("This is the current player hand" + gameState.getCurrentPlayer().getHand());
         }

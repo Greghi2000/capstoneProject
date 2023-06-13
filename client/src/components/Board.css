@@ -1,0 +1,29 @@
+.Board {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+  
+  .row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+  
+  .p1-siege-rank,
+  .p1-range-rank,
+  .p1-melee-rank,
+  .p2-melee-rank,
+  .p2-range-rank,
+  .p2-siege-rank {
+    border: 1px solid #ccc;
+    padding: 10px;
+  }
+  
+  .p1-melee-score {
+    margin-top: 0;
+  }
+  
+  .player-score {
+    margin: 20px 0;
+  }

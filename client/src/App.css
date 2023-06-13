@@ -1,38 +1,29 @@
-.App {
-  text-align: center;
+.Board {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.p1-siege-rank,
+.p1-range-rank,
+.p1-melee-rank,
+.p2-melee-rank,
+.p2-range-rank,
+.p2-siege-rank {
+  border: 1px solid #ccc;
+  padding: 10px;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.p1-melee-score {
+  margin-top: 0;
 }
 
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.player-score {
+  margin: 20px 0;
 }
