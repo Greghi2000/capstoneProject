@@ -1,19 +1,26 @@
 import './App.css';
 import Board from './components/Board';
 import PlayerCardSelection from './components/PlayerCardSelection';
-import StartGame from './components/StartGame';
+import StartGame from './components/StartGame'
 import React, { useState } from "react";
-
 
 function App() {
   const [activePlayer, setActivePlayer] = useState(null);
+  const [playersSubmitted, setPlayersSubmitted] = useState(false); // New state variable
+
+  const handlePlayersSubmitted = () => {
+    setPlayersSubmitted(true);
+  };
+
   return (
-      <>
-        <StartGame setActivePlayer={setActivePlayer}/>
-        <PlayerCardSelection activePlayer={activePlayer} setActivePlayer ={setActivePlayer}/>
-        <Board activePlayer={activePlayer}/>
-      </>
-    );
+    <>
+      {!playersSubmitted && (
+        <StartGame setActivePlayer={setActivePlayer} onPlayersSubmitted={handlePlayersSubmitted} />
+      )}
+      <PlayerCardSelection activePlayer={activePlayer} setActivePlayer={setActivePlayer} />
+      <Board activePlayer={activePlayer} />
+    </>
+  );
 }
 
 export default App;
