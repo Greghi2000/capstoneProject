@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import axios from 'axios';
 
-const StartGame = ({ setActivePlayer, onPlayersSubmitted }) => {
-  const [newPlayers, setNewPlayers] = useState([]);
+const StartGame = ({newPlayers, setNewPlayers, setActivePlayer, onPlayersSubmitted }) => {
   const [inputtedPlayer, setInputtedPlayer] = useState("");
 
   const handleNameChange = (e) => {
@@ -27,7 +26,7 @@ const StartGame = ({ setActivePlayer, onPlayersSubmitted }) => {
           console.log(response.data);
           setActivePlayer(response.data);
           setInputtedPlayer("");
-          setNewPlayers([]);
+          // setNewPlayers([]);
           onPlayersSubmitted(); // Call the callback function to indicate players submission
         } catch (error) {
           console.error(error);

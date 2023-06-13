@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "../components/Board.css";
 
-const Board = ({ activePlayer }) => {
+const Board = ({newPlayers, activePlayer }) => {
   const [board, setBoard] = useState(null);
 
   useEffect(() => {
@@ -61,8 +61,8 @@ const Board = ({ activePlayer }) => {
       </div>
 
       <div className="player-score-container">
-        <h2 className="player-score">Player 1 Total Score: {player1scores.Total}</h2>
-        <h2 className="player-score">Player 2 Total Score: {player2scores.Total}</h2>
+      <h2 className="player-score"> Name: {`${newPlayers[0]}`} Total Score: {player1scores.Total}</h2>
+        <h2 className="player-score"> Name: {`${newPlayers[1]}`} Total Score: {player2scores.Total}</h2>
       </div>
 
       <div className="row">

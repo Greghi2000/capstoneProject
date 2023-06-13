@@ -8,6 +8,7 @@ import React, { useState } from "react";
 function App() {
   const [activePlayer, setActivePlayer] = useState(null);
   const [playersSubmitted, setPlayersSubmitted] = useState(false); // New state variable
+  const [newPlayers, setNewPlayers] = useState([]);
 
   const handlePlayersSubmitted = () => {
     setPlayersSubmitted(true);
@@ -17,9 +18,9 @@ function App() {
     <>
       <Header/>
       {!playersSubmitted && (
-        <StartGame setActivePlayer={setActivePlayer} onPlayersSubmitted={handlePlayersSubmitted} />
+        <StartGame newPlayers={newPlayers} setNewPlayers={setNewPlayers} setActivePlayer={setActivePlayer} onPlayersSubmitted={handlePlayersSubmitted} />
       )}
-      <Board activePlayer={activePlayer} />
+      <Board newPlayers={newPlayers} activePlayer={activePlayer} />
       <PlayerCardSelection activePlayer={activePlayer} setActivePlayer={setActivePlayer} />
     </>
   );
