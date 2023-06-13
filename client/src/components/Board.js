@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import "../components/Board.css"
+import "../components/Board.css";
 
 const Board = ({ activePlayer }) => {
   const [board, setBoard] = useState(null);
@@ -60,9 +60,11 @@ const Board = ({ activePlayer }) => {
         </div>
       </div>
 
-      <h2 className="player-score">Player 1 Total Score: {player1scores.Total}</h2>
+      <div className="player-score-container">
+        <h2 className="player-score">Player 1 Total Score: {player1scores.Total}</h2>
+        <h2 className="player-score">Player 2 Total Score: {player2scores.Total}</h2>
+      </div>
 
-      <h2 className="player-score">Player 2 Total Score: {player2scores.Total}</h2>
       <div className="row">
         <div className="p2-melee-rank">
           <h3>Melee</h3>
