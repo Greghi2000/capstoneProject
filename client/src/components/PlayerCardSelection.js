@@ -71,21 +71,40 @@ const PlayerCardSelection = ({ activePlayer, setActivePlayer }) => {
     }
   };
 
+  const handlePassRound = async (e) => {
+    e.preventDefault();
+    try {
+      const passResponse = await axios.get('http://localhost:8080/api/gamestate/passRound');
+      console.log(passResponse.data);
+      console.log(activePlayer.name + " Has passed the round")
+      const toggleResponse = await axios.get('http://localhost:8080/api/gamestate/togglePlayer');
+      console.log(toggleResponse.data);
+      setActivePlayer(toggleResponse.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <div className="PlayerCardSelection">
       {activePlayer &&
         (activePlayer.hand.length >= 1 ? (
-          activePlayer.hand.map((card) => (
-            <div
-              key={card.id}
-              className={`card ${activePlayerSelectedCard && activePlayerSelectedCard.id === card.id ? 'active' : ''}`}
-              onClick={() => handleChosenCardClick(card, card.name, card.power)}
-            >
-              <p>
-                Name of Card: {card.name} || Power: {card.power}
-              </p>
-            </div>
-          ))
+          <>
+            {activePlayer.hand.map((card) => (
+              <div
+                key={card.id}
+                className={`card ${activePlayerSelectedCard && activePlayerSelectedCard.id === card.id ? 'active' : ''}`}
+                onClick={() => handleChosenCardClick(card, card.name, card.power)}
+              >
+                <p>
+                  Name of Card: {card.name} || Power: {card.power}
+                </p>
+              </div>
+            ))}
+            <form onSubmit={handleChosenCardSubmission}>
+              <input type="submit" value="Play Chosen Card" />
+            </form>
+          </>
         ) : (
           <>
             {activePlayer.deck.map((card) => (
@@ -104,11 +123,9 @@ const PlayerCardSelection = ({ activePlayer, setActivePlayer }) => {
             </form>
           </>
         ))}
-      {activePlayerSelectedCard && (
-        <form onSubmit={handleChosenCardSubmission}>
-          <input type="submit" value="Play Chosen Card" />
-        </form>
-      )}
+      <form onSubmit={handlePassRound}>
+        <input type="submit" value="Pass Round" />
+      </form>
     </div>
   );
 };

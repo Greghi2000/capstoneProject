@@ -93,6 +93,7 @@ public class GameController {
     @GetMapping(value = "api/gamestate/passRound")
     public ResponseEntity<HttpStatus> passRound(){
         gameService.passRound();
+        System.out.println(gameService.getGameState().getCurrentPlayer().getName() + " has passed the round");
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
