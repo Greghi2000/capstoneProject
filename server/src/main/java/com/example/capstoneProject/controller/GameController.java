@@ -8,6 +8,7 @@ import com.example.capstoneProject.models.Player;
 import com.example.capstoneProject.repositories.CardRepository;
 import com.example.capstoneProject.repositories.PlayerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -95,6 +96,34 @@ public class GameController {
         gameService.passRound();
         System.out.println(gameService.getGameState().getCurrentPlayer().getName() + " has passed the round");
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @GetMapping(value = "api/gamestate/isRoundOver")
+    public ResponseEntity<Boolean> isRoundOver(){
+        if (gameService.isRoundOver()){
+            gameService.endRound();
+            return new ResponseEntity<>(true, HttpStatus.OK);
+        }
+        return new ResponseEntity<>(false, HttpStatus.OK);
+    }
+
+    @GetMapping(value = "api/gamestate/isGameOver")
+    public ResponseEntity<Boolean> isGameOver(){
+        if(gameService.isGameOver()){
+            gameService.endGame();
+            return new ResponseEntity<>(true, HttpStatus.OK);
+        }
+        return new ResponseEntity<>(false, HttpStatus.OK);
+    }
+    @GetMapping(value = "/api/gamestate/getGameStatus")
+    public ResponseEntity<String> getGameStatus() {
+        if (gameService.isGameOver()) {
+            return new ResponseEntity<>("Game Over!", HttpStatus.OK);
+        } else if (gameService.isRoundOver()) {
+            return new ResponseEntity<>("Round Over!", HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>("Next Turn", HttpStatus.OK);
+        }
     }
 
 

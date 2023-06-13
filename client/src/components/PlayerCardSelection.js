@@ -60,9 +60,27 @@ const PlayerCardSelection = ({ activePlayer, setActivePlayer }) => {
       );
       if (response.status === 200) {
         try {
-          const response = await axios.get('http://localhost:8080/api/gamestate/togglePlayer');
-          console.log(response.data);
-          setActivePlayer(response.data);
+          const roundOverResponse = await axios.get('http://localhost:8080/api/gamestate/isRoundOver');
+          console.log(roundOverResponse.data);
+          if (roundOverResponse.data === true) {
+            console.log("The round is over");
+  
+            try {
+              const gameOverResponse = await axios.get('http://localhost:8080/api/gamestate/isGameOver');
+              console.log(gameOverResponse.data);
+              if (gameOverResponse.data === true) {
+                console.log("The game is over");
+                
+              } else {
+              }
+            } catch (error) {
+              console.error(error);
+            }
+          } else {
+            const toggleResponse = await axios.get('http://localhost:8080/api/gamestate/togglePlayer');
+            console.log(toggleResponse.data);
+            setActivePlayer(toggleResponse.data);
+          }
         } catch (error) {
           console.error(error);
         }
@@ -71,20 +89,50 @@ const PlayerCardSelection = ({ activePlayer, setActivePlayer }) => {
       console.error(error);
     }
   };
+    
 
   const handlePassRound = async (e) => {
     e.preventDefault();
     try {
       const passResponse = await axios.get('http://localhost:8080/api/gamestate/passRound');
       console.log(passResponse.data);
-      console.log(activePlayer.name + " Has passed the round")
-      const toggleResponse = await axios.get('http://localhost:8080/api/gamestate/togglePlayer');
-      console.log(toggleResponse.data);
-      setActivePlayer(toggleResponse.data);
+      console.log(activePlayer.name + " Has passed the round");
+  
+      try {
+        const roundOverResponse = await axios.get('http://localhost:8080/api/gamestate/isRoundOver');
+        console.log(roundOverResponse.data);
+        if (roundOverResponse.data === true) {
+          console.log("The round is over");
+  
+          try {
+            const gameOverResponse = await axios.get('http://localhost:8080/api/gamestate/isGameOver');
+            console.log(gameOverResponse.data);
+            if (gameOverResponse.data === true) {
+              console.log("The game is over");
+              // Perform actions for game over
+            } else {
+              console.log("The game is not over");
+              const toggleResponse = await axios.get('http://localhost:8080/api/gamestate/togglePlayer');
+              console.log(toggleResponse.data);
+              setActivePlayer(toggleResponse.data);
+            }
+          } catch (error) {
+            console.error(error);
+          }
+        } else {
+          console.log("The round is not over");
+          const toggleResponse = await axios.get('http://localhost:8080/api/gamestate/togglePlayer');
+          console.log(toggleResponse.data);
+          setActivePlayer(toggleResponse.data);
+        }
+      } catch (error) {
+        console.error(error);
+      }
     } catch (error) {
       console.error(error);
     }
   };
+  
 
   const handleCardMouseEnter = (card) => {
     setHoveredCard(card);
@@ -98,7 +146,7 @@ const PlayerCardSelection = ({ activePlayer, setActivePlayer }) => {
     <div className="PlayerCardSelection">
       {activePlayer && (
         <>
-          <p>{activePlayer.name}</p>
+          <p>{activePlayer.name} {activePlayer.lives}</p>
           {activePlayer.hand.length >= 1 ? (
             <>
               {activePlayer.hand.map((card) => (
