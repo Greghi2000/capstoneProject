@@ -17,10 +17,21 @@ function App() {
 
   return (
     <>
-      <Header startGameComponent={ !playersSubmitted && (<StartGame newPlayers={newPlayers} setNewPlayers={setNewPlayers} setActivePlayer={setActivePlayer} onPlayersSubmitted={handlePlayersSubmitted} />)} />
+      <Header
+        startGameComponent={
+          !playersSubmitted && (
+            <StartGame
+              newPlayers={newPlayers}
+              setNewPlayers={setNewPlayers}
+              setActivePlayer={setActivePlayer}
+              onPlayersSubmitted={handlePlayersSubmitted}
+              backgroundMusic={<BackgroundMusic />}
+            />
+          )
+        }
+      />
       <Board newPlayers={newPlayers} activePlayer={activePlayer} />
       <PlayerCardSelection activePlayer={activePlayer} setActivePlayer={setActivePlayer} />
-      <BackgroundMusic/>
     </>
   );
 }

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import axios from 'axios';
 
-const StartGame = ({newPlayers, setNewPlayers, setActivePlayer, onPlayersSubmitted }) => {
+const StartGame = ({newPlayers, setNewPlayers, setActivePlayer, onPlayersSubmitted, backgroundMusic }) => {
   const [inputtedPlayer, setInputtedPlayer] = useState("");
 
   const handleNameChange = (e) => {
