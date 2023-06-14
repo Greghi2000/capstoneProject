@@ -116,7 +116,7 @@ public class GameService {
 
     public void chooseHand(List<Card> hand) {
         getGameState().getCurrentPlayer().setHand(hand);
-        System.out.println("This is the hand that we got from reat!!!" + getGameState().getCurrentPlayer().getHand());
+        System.out.println("This is the hand that we got from react!!!" + getGameState().getCurrentPlayer().getHand());
     }
 
     public void togglePlayer() {

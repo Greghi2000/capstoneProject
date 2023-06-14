@@ -4,6 +4,7 @@ import PlayerCardSelection from './components/PlayerCardSelection';
 import StartGame from './components/StartGame';
 import Header from './components/Header';
 import React, { useState } from "react";
+import BackgroundMusic from './components/BackgroundMusic';
 
 function App() {
   const [activePlayer, setActivePlayer] = useState(null);
@@ -19,6 +20,7 @@ function App() {
       <Header startGameComponent={ !playersSubmitted && (<StartGame newPlayers={newPlayers} setNewPlayers={setNewPlayers} setActivePlayer={setActivePlayer} onPlayersSubmitted={handlePlayersSubmitted} />)} />
       <Board newPlayers={newPlayers} activePlayer={activePlayer} />
       <PlayerCardSelection activePlayer={activePlayer} setActivePlayer={setActivePlayer} />
+      <BackgroundMusic/>
     </>
   );
 }
