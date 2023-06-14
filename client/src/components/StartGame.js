@@ -38,6 +38,7 @@ const StartGame = ({newPlayers, setNewPlayers, setActivePlayer, onPlayersSubmitt
   };
 
   return (
+    <div className="header-container">
     <div className="UserNewForm">
       <form onSubmit={handlePlayersList}>
         <label htmlFor="newPlayerName">Name:</label>
@@ -59,6 +60,7 @@ const StartGame = ({newPlayers, setNewPlayers, setActivePlayer, onPlayersSubmitt
           <li key={index}>{newPlayer}</li>
         ))}
       </ul>
+    </div>
     </div>
   );
 }
