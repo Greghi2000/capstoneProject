@@ -1,7 +1,11 @@
 .Board {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(1, 1fr);
   gap: 20px;
+  margin-left: 11.97%;
+  margin-right: 11.97%;
+  margin-top: 5%;
+  margin-bottom: 5%;
 }
 
 .row {

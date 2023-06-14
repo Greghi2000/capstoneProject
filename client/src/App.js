@@ -1,8 +1,8 @@
 import './App.css';
 import Board from './components/Board';
 import PlayerCardSelection from './components/PlayerCardSelection';
-import StartGame from './components/StartGame'
-import Header from './components/Header'
+import StartGame from './components/StartGame';
+import Header from './components/Header';
 import React, { useState } from "react";
 
 function App() {
@@ -16,10 +16,7 @@ function App() {
 
   return (
     <>
-      <Header/>
-      {!playersSubmitted && (
-        <StartGame newPlayers={newPlayers} setNewPlayers={setNewPlayers} setActivePlayer={setActivePlayer} onPlayersSubmitted={handlePlayersSubmitted} />
-      )}
+      <Header startGameComponent={ !playersSubmitted && (<StartGame newPlayers={newPlayers} setNewPlayers={setNewPlayers} setActivePlayer={setActivePlayer} onPlayersSubmitted={handlePlayersSubmitted} />)} />
       <Board newPlayers={newPlayers} activePlayer={activePlayer} />
       <PlayerCardSelection activePlayer={activePlayer} setActivePlayer={setActivePlayer} />
     </>

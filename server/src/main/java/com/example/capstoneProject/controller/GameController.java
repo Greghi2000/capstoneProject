@@ -125,6 +125,10 @@ public class GameController {
             return new ResponseEntity<>("Next Turn", HttpStatus.OK);
         }
     }
+    @GetMapping(value = "/api/gamestate/getPlayerList")
+    public ResponseEntity<List<Player>> getPlayerLives() {
+        return new ResponseEntity<>(gameService.getGameState().getListOfPlayers(), HttpStatus.OK);
+    }
 
 
 

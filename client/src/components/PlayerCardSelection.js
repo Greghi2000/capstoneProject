@@ -147,10 +147,13 @@ const PlayerCardSelection = ({ activePlayer, setActivePlayer }) => {
   };
 
   return (
+    <div>
+    {activePlayer && (
+    <h3>Choosing cards for Player: {activePlayer.name}</h3>
+    )}
     <div className="PlayerCardSelection">
       {activePlayer && (
         <>
-          <p>{activePlayer.name} {activePlayer.lives}</p>
           {activePlayer.hand.length >= 1 ? (
             <>
               {activePlayer.hand.map((card) => (
@@ -201,6 +204,7 @@ const PlayerCardSelection = ({ activePlayer, setActivePlayer }) => {
           </form>
         </>
       )}
+    </div>
     </div>
   );
 };
