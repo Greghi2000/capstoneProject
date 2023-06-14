@@ -2,6 +2,12 @@
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 10px;
+  margin-left: 11.97%;
+  margin-right: 11.97%;
+}
+h3 {
+  margin-left: 11.97%;
+  margin-right: 11.97%;
 }
 
 .PlayerCardSelection .card {
@@ -9,12 +15,16 @@
   border: 1px solid #ccc;
   padding: 10px;
   cursor: pointer;
+  box-shadow: 0px 0px 11px rgba(0, 0, 0, 0.16);
+  border-radius: 10px;
 }
 
 .PlayerCardSelection .card.selected,
 .PlayerCardSelection .card.active {
   background-color: #f1f1f1;
   color: #333;
+  box-shadow: 0px 0px 11px rgba(0, 0, 0, 0.16);
+  border-radius: 10px;
 }
 
 .flavor-text {

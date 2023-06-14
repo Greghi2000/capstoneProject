@@ -3,6 +3,7 @@ import "../components/Board.css";
 
 const Board = ({newPlayers, activePlayer }) => {
   const [board, setBoard] = useState(null);
+  const [listOf2Players, setListOf2Players] = useState(null);
 
   useEffect(() => {
     fetch("http://localhost:8080/api/gamestate/getBoard")
@@ -10,6 +11,27 @@ const Board = ({newPlayers, activePlayer }) => {
       .then((boardData) => setBoard(boardData))
       .catch((error) => console.error(error));
   }, [activePlayer]);
+  useEffect(() => {
+    fetch("http://localhost:8080/api/gamestate/getPlayerList")
+      .then((res) => res.json())
+      .then((playerObj) => setListOf2Players(playerObj))
+      .catch((error) => console.error(error));
+  }, [activePlayer]);
+
+  
+  let listofPlayersLives = [];
+  let listofPlayersNames = [];
+  
+  if (listOf2Players && Object.keys(listOf2Players).length !== 0) {
+    listofPlayersLives = listOf2Players.map((playerObj) => {
+      return playerObj.lives;
+    });
+    listofPlayersNames = listOf2Players.map((playerObj) => {
+      return playerObj.name;
+    });
+  
+    console.log("These are the two player lives ", listofPlayersLives);
+  }
 
   if (!board) {
     return <p>Loading...</p>;
@@ -25,6 +47,9 @@ const Board = ({newPlayers, activePlayer }) => {
   return (
     <div className="Board">
       <div className="row">
+      <div className="player-score-container">
+      <h2 className="player-score"> Name: {`${listofPlayersNames[0]}`} Lives: {`${listofPlayersLives[0]}`} Total Score: {player1scores.Total}</h2>
+      </div>
         <div className="p1-siege-rank">
           <h3>Siege</h3>
           <div>
@@ -61,8 +86,7 @@ const Board = ({newPlayers, activePlayer }) => {
       </div>
 
       <div className="player-score-container">
-      <h2 className="player-score"> Name: {`${newPlayers[0]}`} Total Score: {player1scores.Total}</h2>
-        <h2 className="player-score"> Name: {`${newPlayers[1]}`} Total Score: {player2scores.Total}</h2>
+      <h2 className="player-score"> Name: {`${listofPlayersNames[1]}`} Lives: {`${listofPlayersLives[1]}`} Total Score: {player1scores.Total}</h2>
       </div>
 
       <div className="row">
