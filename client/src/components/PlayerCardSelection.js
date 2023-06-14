@@ -199,9 +199,11 @@ const PlayerCardSelection = ({ activePlayer, setActivePlayer }) => {
               </form>
             </>
           )}
-          <form onSubmit={handlePassRound}>
-            <input type="submit" value="Pass Round" />
-          </form>
+          {activePlayer.hand.length > 1 && (
+            <form onSubmit={handlePassRound}>
+              <input type="submit" value="Pass Round" />
+            </form>
+          )}
         </>
       )}
     </div>

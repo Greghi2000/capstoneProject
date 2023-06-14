@@ -55,7 +55,8 @@ const Board = ({newPlayers, activePlayer }) => {
           <div>
             {player1Cards.Siege.map((card, index) => (
               <p key={index}>
-                {card.name} {card.power}
+              Name: {card.name}
+              Power{card.power}
               </p>
             ))}
           </div>
@@ -66,7 +67,7 @@ const Board = ({newPlayers, activePlayer }) => {
           <div>
             {player1Cards.Range.map((card, index) => (
               <p key={index}>
-                {card.name} {card.power}
+              Name: {card.name} Power: {card.power}
               </p>
             ))}
           </div>
@@ -77,7 +78,7 @@ const Board = ({newPlayers, activePlayer }) => {
           <div>
             {player1Cards.Melee.map((card, index) => (
               <p key={index}>
-                {card.name} {card.power}
+              Name: {card.name} Power: {card.power}
               </p>
             ))}
           </div>
@@ -95,7 +96,7 @@ const Board = ({newPlayers, activePlayer }) => {
           <div>
             {player2Cards.Melee.map((card, index) => (
               <p key={index}>
-                {card.name} {card.power}
+              Name: {card.name} Power: {card.power}
               </p>
             ))}
           </div>
@@ -106,7 +107,7 @@ const Board = ({newPlayers, activePlayer }) => {
           <div>
             {player2Cards.Range.map((card, index) => (
               <p key={index}>
-                {card.name} {card.power}
+              Name: {card.name} Power: {card.power}
               </p>
             ))}
           </div>
@@ -117,7 +118,7 @@ const Board = ({newPlayers, activePlayer }) => {
           <div>
             {player2Cards.Siege.map((card, index) => (
               <p key={index}>
-                {card.name} {card.power}
+                Name: {card.name} Power: {card.power}
               </p>
             ))}
           </div>
