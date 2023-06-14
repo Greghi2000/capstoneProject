@@ -29,10 +29,10 @@
 }
 
 .player-score-container {
-  grid-column: 1 / -1; /* Span across all columns */
+  grid-column: 1 / -1;
 }
 
 .player-score {
   margin: 20px 0;
-  grid-column: 1 / -1; /* Span across all columns */
+  grid-column: 1 / -1;
 }
