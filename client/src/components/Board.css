@@ -14,18 +14,19 @@
   gap: 20px;
 }
 
-.p1-siege-rank,
-.p1-range-rank,
-.p1-melee-rank,
-.p2-melee-rank,
-.p2-range-rank,
-.p2-siege-rank {
+.rank {
   border: 1px solid #ccc;
   padding: 10px;
 }
 
-.p1-melee-score {
-  margin-top: 0;
+.rank h3 {
+  text-align: center;
+}
+
+.rank > div {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
 }
 
 .player-score-container {

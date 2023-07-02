@@ -12,6 +12,7 @@ const Board = ({ newPlayers, activePlayer }) => {
       .then((boardData) => setBoard(boardData))
       .catch((error) => console.error(error));
   }, [activePlayer]);
+
   useEffect(() => {
     fetch("http://localhost:8080/api/gamestate/getPlayerList")
       .then((res) => res.json())
@@ -41,33 +42,28 @@ const Board = ({ newPlayers, activePlayer }) => {
 
   return (
     <div className="Board">
-      <div className="row">
-        <div className="player-score-container">
-          <h2 className="player-score">
-            Name: {`${listofPlayersNames[0]}`} Lives: {`${listofPlayersLives[0]}`} Total Score: {player1scores.Total}
-          </h2>
-        </div>
-        <div className="p1-siege-rank">
+      <div className="player-ranks">
+        <div className="rank">
           <h3>Siege</h3>
-          <div>
+          <div className="card-container">
             {player1Cards.Siege.map((card, index) => (
               <Card key={index} card={card} />
             ))}
           </div>
           <p>Score: {player1scores.Siege}</p>
         </div>
-        <div className="p1-range-rank">
+        <div className="rank">
           <h3>Range</h3>
-          <div>
+          <div className="card-container">
             {player1Cards.Range.map((card, index) => (
               <Card key={index} card={card} />
             ))}
           </div>
           <p>Score: {player1scores.Range}</p>
         </div>
-        <div className="p1-melee-rank">
+        <div className="rank">
           <h3>Melee</h3>
-          <div>
+          <div className="card-container">
             {player1Cards.Melee.map((card, index) => (
               <Card key={index} card={card} />
             ))}
@@ -78,32 +74,38 @@ const Board = ({ newPlayers, activePlayer }) => {
 
       <div className="player-score-container">
         <h2 className="player-score">
+          Name: {`${listofPlayersNames[0]}`} Lives: {`${listofPlayersLives[0]}`} Total Score: {player1scores.Total}
+        </h2>
+      </div>
+
+      <div className="player-score-container">
+        <h2 className="player-score">
           Name: {`${listofPlayersNames[1]}`} Lives: {`${listofPlayersLives[1]}`} Total Score: {player2scores.Total}
         </h2>
       </div>
 
-      <div className="row">
-        <div className="p2-melee-rank">
+      <div className="player-ranks">
+        <div className="rank">
           <h3>Melee</h3>
-          <div>
+          <div className="card-container">
             {player2Cards.Melee.map((card, index) => (
               <Card key={index} card={card} />
             ))}
           </div>
           <p>Score: {player2scores.Melee}</p>
         </div>
-        <div className="p2-range-rank">
+        <div className="rank">
           <h3>Range</h3>
-          <div>
+          <div className="card-container">
             {player2Cards.Range.map((card, index) => (
               <Card key={index} card={card} />
             ))}
           </div>
           <p>Score: {player2scores.Range}</p>
         </div>
-        <div className="p2-siege-rank">
+        <div className="rank">
           <h3>Siege</h3>
-          <div>
+          <div className="card-container">
             {player2Cards.Siege.map((card, index) => (
               <Card key={index} card={card} />
             ))}

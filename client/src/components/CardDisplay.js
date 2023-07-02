@@ -62,7 +62,7 @@ const CardDisplay = ({ card }) => {
       return { imageUrl, borderImageUrl };
     } else {
       console.error('Failed to parse card data:', data);
-      return { imageUrl: '', borderImageUrl: '' }; // Return default values
+      return { imageUrl: '', borderImageUrl: '' }; 
     }
   };
 
