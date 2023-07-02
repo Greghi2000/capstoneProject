@@ -71,13 +71,13 @@ const Board = ({ newPlayers, activePlayer }) => {
 
       <div className="player-score-container">
         <h2 className="player-score">
-          Name: {`${listofPlayersNames[0]}`} Lives: {`${listofPlayersLives[0]}`} Total Score: {player1scores.Total}
+        {`${listofPlayersNames[0]}`} {Array(listofPlayersLives[0]).fill("💎")} {player2scores.Total}
         </h2>
       </div>
 
       <div className="player-score-container">
         <h2 className="player-score">
-          Name: {`${listofPlayersNames[1]}`} Lives: {`${listofPlayersLives[1]}`} Total Score: {player2scores.Total}
+        {`${listofPlayersNames[1]}`} {Array(listofPlayersLives[1]).fill("💎")} {player2scores.Total}
         </h2>
       </div>
 
