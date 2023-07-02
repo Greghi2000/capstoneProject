@@ -4,7 +4,7 @@ import CardDisplay from './CardDisplay';
 const Card = ({ card }) => {
   return (
     <div className="Card">
-      <h2>{card.name}</h2>
+      <p>{card.name}</p>
       <p>Power: {card.power}</p>
       <CardDisplay card={card} />
     </div>

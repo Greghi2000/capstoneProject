@@ -62,7 +62,7 @@ const Board = ({ newPlayers, activePlayer }) => {
           <p>Score: {player1scores.Range}</p>
         </div>
         <div className="rank">
-          <h3>Melee</h3>
+          <h3>Melee </h3>
           <div className="card-container">
             {player1Cards.Melee.map((card, index) => (
               <Card key={index} card={card} />
