@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from 'axios';
 import './PlayerCardSelection.css';
+import Card from "./Card";
 
 const PlayerCardSelection = ({ activePlayer, setActivePlayer }) => {
   const [activePlayerSelectedHand, setActivePlayerSelectedHand] = useState([]);
@@ -164,9 +165,10 @@ const PlayerCardSelection = ({ activePlayer, setActivePlayer }) => {
                   onMouseEnter={() => handleCardMouseEnter(card)}
                   onMouseLeave={handleCardMouseLeave}
                 >
-                  <p>
+                  {/* <p>
                     Name of Card: {card.name} || Power: {card.power}
-                  </p>
+                  </p> */}
+                  <Card card={card} />
                   {hoveredCard && hoveredCard.id === card.id && (
                     <p className="flavor-text">{card.flavor}</p>
                   )}
@@ -186,9 +188,10 @@ const PlayerCardSelection = ({ activePlayer, setActivePlayer }) => {
                   onMouseEnter={() => handleCardMouseEnter(card)}
                   onMouseLeave={handleCardMouseLeave}
                 >
-                  <p>
+                  {/* <p>
                     Name of Card: {card.name} || Power: {card.power}
-                  </p>
+                  </p> */}
+                  <Card card={card} />
                   {hoveredCard && hoveredCard.id === card.id && (
                     <p className="flavor-text">{card.flavor}</p>
                   )}
