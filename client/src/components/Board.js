@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import "../components/Board.css";
+import Card from "./Card";
 
-const Board = ({newPlayers, activePlayer }) => {
+const Board = ({ newPlayers, activePlayer }) => {
   const [board, setBoard] = useState(null);
   const [listOf2Players, setListOf2Players] = useState(null);
 
@@ -18,10 +19,9 @@ const Board = ({newPlayers, activePlayer }) => {
       .catch((error) => console.error(error));
   }, [activePlayer]);
 
-  
   let listofPlayersLives = [];
   let listofPlayersNames = [];
-  
+
   if (listOf2Players && Object.keys(listOf2Players).length !== 0) {
     listofPlayersLives = listOf2Players.map((playerObj) => {
       return playerObj.lives;
@@ -29,7 +29,7 @@ const Board = ({newPlayers, activePlayer }) => {
     listofPlayersNames = listOf2Players.map((playerObj) => {
       return playerObj.name;
     });
-  
+
     console.log("These are the two player lives ", listofPlayersLives);
   }
 
@@ -37,27 +37,21 @@ const Board = ({newPlayers, activePlayer }) => {
     return <p>Loading...</p>;
   }
 
-  const {
-    player1Cards,
-    player2Cards,
-    player1scores,
-    player2scores,
-  } = board;
+  const { player1Cards, player2Cards, player1scores, player2scores } = board;
 
   return (
     <div className="Board">
       <div className="row">
-      <div className="player-score-container">
-      <h2 className="player-score"> Name: {`${listofPlayersNames[0]}`} Lives: {`${listofPlayersLives[0]}`} Total Score: {player1scores.Total}</h2>
-      </div>
+        <div className="player-score-container">
+          <h2 className="player-score">
+            Name: {`${listofPlayersNames[0]}`} Lives: {`${listofPlayersLives[0]}`} Total Score: {player1scores.Total}
+          </h2>
+        </div>
         <div className="p1-siege-rank">
           <h3>Siege</h3>
           <div>
             {player1Cards.Siege.map((card, index) => (
-              <p key={index}>
-              Name: {card.name}
-              Power{card.power}
-              </p>
+              <Card key={index} card={card} />
             ))}
           </div>
           <p>Score: {player1scores.Siege}</p>
@@ -66,9 +60,7 @@ const Board = ({newPlayers, activePlayer }) => {
           <h3>Range</h3>
           <div>
             {player1Cards.Range.map((card, index) => (
-              <p key={index}>
-              Name: {card.name} Power: {card.power}
-              </p>
+              <Card key={index} card={card} />
             ))}
           </div>
           <p>Score: {player1scores.Range}</p>
@@ -77,9 +69,7 @@ const Board = ({newPlayers, activePlayer }) => {
           <h3>Melee</h3>
           <div>
             {player1Cards.Melee.map((card, index) => (
-              <p key={index}>
-              Name: {card.name} Power: {card.power}
-              </p>
+              <Card key={index} card={card} />
             ))}
           </div>
           <p className="p1-melee-score">Score: {player1scores.Melee}</p>
@@ -87,7 +77,9 @@ const Board = ({newPlayers, activePlayer }) => {
       </div>
 
       <div className="player-score-container">
-      <h2 className="player-score"> Name: {`${listofPlayersNames[1]}`} Lives: {`${listofPlayersLives[1]}`} Total Score: {player2scores.Total}</h2>
+        <h2 className="player-score">
+          Name: {`${listofPlayersNames[1]}`} Lives: {`${listofPlayersLives[1]}`} Total Score: {player2scores.Total}
+        </h2>
       </div>
 
       <div className="row">
@@ -95,9 +87,7 @@ const Board = ({newPlayers, activePlayer }) => {
           <h3>Melee</h3>
           <div>
             {player2Cards.Melee.map((card, index) => (
-              <p key={index}>
-              Name: {card.name} Power: {card.power}
-              </p>
+              <Card key={index} card={card} />
             ))}
           </div>
           <p>Score: {player2scores.Melee}</p>
@@ -106,9 +96,7 @@ const Board = ({newPlayers, activePlayer }) => {
           <h3>Range</h3>
           <div>
             {player2Cards.Range.map((card, index) => (
-              <p key={index}>
-              Name: {card.name} Power: {card.power}
-              </p>
+              <Card key={index} card={card} />
             ))}
           </div>
           <p>Score: {player2scores.Range}</p>
@@ -117,9 +105,7 @@ const Board = ({newPlayers, activePlayer }) => {
           <h3>Siege</h3>
           <div>
             {player2Cards.Siege.map((card, index) => (
-              <p key={index}>
-                Name: {card.name} Power: {card.power}
-              </p>
+              <Card key={index} card={card} />
             ))}
           </div>
           <p>Score: {player2scores.Siege}</p>
