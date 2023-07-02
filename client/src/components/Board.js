@@ -45,7 +45,7 @@ const Board = ({ newPlayers, activePlayer }) => {
       <div className="player-ranks">
         <div className="rank">
           <div className="card-container">
-          <h3>Siege ({player1scores.Siege})</h3>
+          <h3>🔨 {player1scores.Siege}</h3>
             {player1Cards.Siege.map((card, index) => (
               <Card key={index} card={card} />
             ))}
@@ -53,7 +53,7 @@ const Board = ({ newPlayers, activePlayer }) => {
         </div>
         <div className="rank">
           <div className="card-container">
-          <h3>Range ({player1scores.Range})</h3>
+          <h3>🏹 {player1scores.Range}</h3>
             {player1Cards.Range.map((card, index) => (
               <Card key={index} card={card} />
             ))}
@@ -61,7 +61,7 @@ const Board = ({ newPlayers, activePlayer }) => {
         </div>
         <div className="rank">
           <div className="card-container">
-          <h3>Melee ({player1scores.Melee})</h3>
+          <h3>⚔️ {player1scores.Melee}</h3>
             {player1Cards.Melee.map((card, index) => (
               <Card key={index} card={card} />
             ))}
@@ -84,7 +84,7 @@ const Board = ({ newPlayers, activePlayer }) => {
       <div className="player-ranks">
         <div className="rank">
           <div className="card-container">
-          <h3>Melee ({player2scores.Melee})</h3>
+          <h3>⚔️ {player2scores.Melee}</h3>
             {player2Cards.Melee.map((card, index) => (
               <Card key={index} card={card} />
             ))}
@@ -92,7 +92,7 @@ const Board = ({ newPlayers, activePlayer }) => {
         </div>
         <div className="rank">
           <div className="card-container">
-          <h3>Range ({player2scores.Range})</h3>
+          <h3>🏹 {player2scores.Range}</h3>
             {player2Cards.Range.map((card, index) => (
               <Card key={index} card={card} />
             ))}
@@ -100,7 +100,7 @@ const Board = ({ newPlayers, activePlayer }) => {
         </div>
         <div className="rank">
           <div className="card-container">
-          <h3>Siege ({player2scores.Siege})</h3>
+          <h3>🔨 {player2scores.Siege}</h3>
             {player2Cards.Siege.map((card, index) => (
               <Card key={index} card={card} />
             ))}
