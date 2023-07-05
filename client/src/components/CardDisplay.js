@@ -5,6 +5,7 @@ import styled from 'styled-components';
 const CardWrapper = styled.div`
   position: relative;
   display: inline-block;
+  margin: 0;
 `;
 
 const CardImage = styled.img`
@@ -19,6 +20,23 @@ const BorderImage = styled.img`
   width: 75%;
   height: auto;
   z-index: 1;
+`;
+
+const ScoreBadge = styled.div`
+  position: absolute;
+  top: 120px;
+  left: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 30px;
+  height: 30px;
+  background-color: red; /* Set the desired background color */
+  border-radius: 50%;
+  color: white; /* Set the desired text color */
+  font-weight: bold;
+  font-size: 16px;
+  border: 2px solid yellow;
 `;
 
 const CardDisplay = ({ card }) => {
@@ -62,7 +80,7 @@ const CardDisplay = ({ card }) => {
       return { imageUrl, borderImageUrl };
     } else {
       console.error('Failed to parse card data:', data);
-      return { imageUrl: '', borderImageUrl: '' }; 
+      return { imageUrl: '', borderImageUrl: '' };
     }
   };
 
@@ -72,6 +90,7 @@ const CardDisplay = ({ card }) => {
     <CardWrapper>
       <CardImage src={imageUrl} alt="Card" />
       <BorderImage src={borderImageUrl} alt="Card Border" />
+      <ScoreBadge>{card.power}</ScoreBadge>
     </CardWrapper>
   );
 };

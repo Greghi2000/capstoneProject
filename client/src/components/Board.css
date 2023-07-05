@@ -26,8 +26,12 @@
 .rank > div {
   display: flex;
   flex-wrap: wrap;
-  gap: 10px;
+  /* gap: 10px; */
   align-items: center;
+}
+
+.rank > div > div:last-child {
+  margin-right: 0;
 }
 
 .player-score-container {
