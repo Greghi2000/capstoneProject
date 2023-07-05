@@ -4,7 +4,6 @@ import styled from 'styled-components';
 const PlayerInfoWrapper = styled.div`
   background-color: rgb(76, 46, 20, 0.7);
   display: flex;
-  justify-content: space-between;
   align-items: center;
   width: 100%;
   height: 100px;
@@ -18,8 +17,8 @@ const ProfilePic = styled.div`
   background-color: rgb(175, 139, 81);
   border: 2px solid black;
   border-radius: 50%;
-  width: 50px; /* Equalize the width and height */
-  height: 50px; /* Equalize the width and height */
+  width: 50px; 
+  height: 50px; 
   margin: 0;
   padding: 0;
 `;
@@ -83,8 +82,8 @@ const PlayerTotalScore = styled.div`
   padding: 0;
   border: 3px solid black;
   border-radius: 50%;
-  width: 50px; /* Equalize the width and height */
-  height: 50px; /* Equalize the width and height */
+  width: 50px; 
+  height: 50px; 
   display: flex;
   justify-content: center;
   align-items: center;

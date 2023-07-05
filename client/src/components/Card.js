@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
-import '../components/Card.css'
+import '../components/Card.css';
 
 const CardWrapper = styled.div`
   position: relative;
@@ -9,6 +9,10 @@ const CardWrapper = styled.div`
   margin: 0;
   padding: 0;
   width: 100px;
+
+  &:hover .card-tooltip {
+    display: block;
+  }
 `;
 
 const CardImage = styled.img`
@@ -40,14 +44,39 @@ const PowerIndicator = styled.div`
   height: 20px;
   background-color: white;
   border-radius: 50%;
-  color: black; 
+  color: black;
   font-weight: bold;
   font-size: 12px;
   border: 2px solid yellow;
 `;
 
+const CardTooltip = styled.div`
+  position: absolute;
+  top: -20px;
+  left: 0;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 5px;
+  display: none;
+  z-index: 2;
+  border-radius: 5px;
+  border: 3px solid yellow;
+`;
+
+const CardName = styled.div`
+  font-weight: bold;
+`;
+
+const CardFlavor = styled.div`
+  font-style: italic;
+  margin-top: 5px;
+  font-size: 12px;
+`;
+
 const Card = ({ card }) => {
   const [cardData, setCardData] = useState(null);
+  const [showTooltip, setShowTooltip] = useState(false);
 
   useEffect(() => {
     const fetchCardData = async () => {
@@ -81,6 +110,7 @@ const Card = ({ card }) => {
       const imageElement = cardElement.querySelector('.G1-cardart img:first-child');
       const borderElement = cardElement.querySelector('.G1-cardart img:nth-child(2)');
 
+
       const imageUrl = imageElement ? imageElement.src : '';
       const borderImageUrl = borderElement ? borderElement.src : '';
 
@@ -91,13 +121,27 @@ const Card = ({ card }) => {
     }
   };
 
-  const { imageUrl, borderImageUrl } = parseCardData(cardData);
+  const { imageUrl, borderImageUrl} = parseCardData(cardData);
+
+  const handleMouseEnter = () => {
+    setShowTooltip(true);
+  };
+
+  const handleMouseLeave = () => {
+    setShowTooltip(false);
+  };
 
   return (
-    <CardWrapper>
+    <CardWrapper onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
       <CardImage src={imageUrl} alt="Card" />
       <BorderImage src={borderImageUrl} alt="Card Border" />
       <PowerIndicator>{card.power}</PowerIndicator>
+      {showTooltip && (
+        <CardTooltip className="card-tooltip">
+          <CardName>{card.name}</CardName>
+          <CardFlavor>{card.flavor}</CardFlavor>
+        </CardTooltip>
+      )}
     </CardWrapper>
   );
 };

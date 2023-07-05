@@ -7,6 +7,8 @@
 
 .player-info {
   width: 25%;
+
+
 }
 
 .board-content {
@@ -48,6 +50,7 @@
   align-items: center;
   /* margin-bottom: 1rem; */
   background-color: rgba(101, 67, 33, 0.8);
+  height: 140px;
 
 }
 
