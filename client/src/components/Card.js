@@ -1,42 +1,48 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
+import '../components/Card.css'
 
 const CardWrapper = styled.div`
   position: relative;
   display: inline-block;
   margin: 0;
   padding: 0;
+  width: 100px;
 `;
 
 const CardImage = styled.img`
-  width: 75%;
+  width: 100%;
   height: auto;
+  margin: 0;
+  padding: 0;
 `;
 
 const BorderImage = styled.img`
   position: absolute;
   top: 0;
   left: 0;
-  width: 75%;
+  width: 100%;
   height: auto;
   z-index: 1;
+  margin: 0;
+  padding: 0;
 `;
 
 const PowerIndicator = styled.div`
   position: absolute;
-  top: 120px;
+  top: 110px;
   left: 10px;
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 30px;
-  height: 30px;
-  background-color: red;
+  width: 20px;
+  height: 20px;
+  background-color: white;
   border-radius: 50%;
-  color: white; 
+  color: black; 
   font-weight: bold;
-  font-size: 16px;
+  font-size: 12px;
   border: 2px solid yellow;
 `;
 

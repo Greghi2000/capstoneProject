@@ -5,6 +5,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-image: url(../public/joshua-bartell-6vvIBTvL90A-unsplash.jpg);
 }
 
 code {

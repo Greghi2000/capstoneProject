@@ -31,9 +31,6 @@ public class GameService {
         this.gameState = new GameState();
     }
 
-    // gamecontroller{ (POST) -> /api/game/start -> gameservice.startNewGame() -> instantiate a new gamestate object}
-    // gamecontroller{ (GET) -> /api/game/getCurrent/id -> gameservice.getCurrentGame() -> return the gamestate ID}
-
 
     //GETTER AND SETTERS
 
@@ -84,21 +81,6 @@ public class GameService {
             i++;
         }
         player.setDeck(deck);
-
-
-//    ArrayList<Player> listOfGSPlayers = getGameState().getListOfPlayers();
-//    System.out.println(getGameState().getListOfPlayers());
-//    for (Player playerGS : listOfGSPlayers) {
-//        if (player.getName() == playerGS.getName()) {
-//            playerGS.setDeck(deck);
-//        }
-//    }
-
-//    for (Player thisPlayer : gameState.getListOfPlayers()){
-//        if(player.getId() == thisPlayer.getId()){
-//            thisPlayer = player;
-//        }
-//    }
         return deck;
     }
 
