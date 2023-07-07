@@ -8,7 +8,7 @@ import BackgroundMusic from './components/BackgroundMusic';
 
 function App() {
   const [activePlayer, setActivePlayer] = useState(null);
-  const [playersSubmitted, setPlayersSubmitted] = useState(false); // New state variable
+  const [playersSubmitted, setPlayersSubmitted] = useState(false); 
   const [newPlayers, setNewPlayers] = useState([]);
 
   const handlePlayersSubmitted = () => {
